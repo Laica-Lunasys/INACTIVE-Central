@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+	 2013/09/22 15:59:52
+	 squarep
+	 ====================================================================== -->
+<project name="Central" default="All">
+
+	<property name="path.classpath" value="libs/**.jar"/>
+	<property name="path.target"    value="target"/>
+	<property name="path.sources"   value="src"/>
+	<property name="path.classes"   value="bin"/>
+	<property name="path.resources" value="resources"/>
+	<property name="file.destJar"   value="${path.target}/Central.jar"/>
+	
+	<description>
+		Central Utilities
+	</description>
+	
+	<!-- ================================= 
+	  target: All
+		 ================================= -->
+	<target name="All" depends="Build, FCopy, JAR" description="Compile -> Packing">
+	</target>
+
+	<!-- ================================= 
+		  target: Build	
+		 ================================= -->
+	<target name="Build" description="Sources Compile">
+		<javac srcdir = "${path.sources}" destdir = "${path.classes}"
+			   classpath = "${path.classpath}" includeantruntime="false"/>
+	</target>
+	
+	<!-- ================================= 
+		  target: FCopy				  
+		================================= -->
+	<target name="FCopy" description="Prepare Make-JAR, FileCopy">
+	    <copy todir="${path.target}/classes" >
+	      <fileset dir="${path.classes}/" />
+	    </copy>
+	    <copy todir="${path.target}/classes" >
+	      <fileset dir="${path.resources}/" />
+	    </copy>
+	</target>
+	<!-- ================================= 
+		  target: JAR
+		================================= -->
+	<target name="JAR" description="Make-JAR">
+		<jar destfile="${file.destJar}" basedir="${path.target}/classes"></jar>
+	</target>
+</project>
