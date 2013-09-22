@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.InetSocketAddress;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
@@ -62,15 +61,7 @@ public class Util {
 	}
 
 	public static String getIp(Player p) {
-		InetSocketAddress IPAdressPlayer = p.getAddress();
-		String sfullip = IPAdressPlayer.toString();
-		String[] fullip;
-		String[] ipandport;
-		fullip = sfullip.split("/");
-		String sIpandPort = fullip[1];
-		ipandport = sIpandPort.split(":");
-		String sIp = ipandport[0];
-		return sIp;
+		return p.getAddress().toString().split("/")[1].split(":")[0];
 	}
 	public static void copyFileFromJar(File targetFile, String sourceFilePath, boolean isBinary) {
 		if(!targetFile.getParentFile().exists())
@@ -125,5 +116,8 @@ public class Util {
 	}
 	public static void Message(CommandSender par1Sender, String par2Messages, String[][] par3Maskes){
 		par1Sender.sendMessage(maskedStringReplace(_("msgPrefix") + par2Messages, par3Maskes));
+	}
+	public static void BroatCastMessage(String par1Messages, String[][] par2Maskes){
+		CentralCore.getInstance().getServer().broadcastMessage(maskedStringReplace(_("msgPrefix") + par1Messages, par2Maskes));
 	}
 }
