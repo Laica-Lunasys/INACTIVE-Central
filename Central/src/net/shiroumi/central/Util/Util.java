@@ -1,6 +1,4 @@
-package Central.Util;
-
-import static Central.i18n.*;
+package net.shiroumi.central.Util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,10 +13,10 @@ import java.io.PrintWriter;
 import java.util.jar.JarFile;
 import java.util.zip.ZipEntry;
 
+import net.shiroumi.central.CentralCore;
+
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import Central.CentralCore;
 
 /** @author squarep */
 public class Util {

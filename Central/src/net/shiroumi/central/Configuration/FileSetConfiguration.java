@@ -1,4 +1,4 @@
-package Central.Configuration;
+package net.shiroumi.central.Configuration;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,8 +10,6 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import Central.Util.Util;
 
 /**
  * @author squarep

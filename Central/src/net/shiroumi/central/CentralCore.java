@@ -1,11 +1,11 @@
-package Central;
+package net.shiroumi.central;
 
 import java.io.File;
 import java.util.logging.Logger;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import net.shiroumi.central.Configuration.ConfigurationManager;
 
-import Central.Configuration.ConfigurationManager;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class CentralCore extends JavaPlugin {
 	public static CentralCore Instance;

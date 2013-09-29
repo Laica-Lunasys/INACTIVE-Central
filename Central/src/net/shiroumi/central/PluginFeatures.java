@@ -1,4 +1,4 @@
-package Central;
+package net.shiroumi.central;
 
 import org.bukkit.plugin.Plugin;
 
