@@ -1,4 +1,4 @@
-package net.shiroumi.central.Configuration;
+package Central.Configuration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /** @author squarep */

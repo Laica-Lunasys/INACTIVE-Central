@@ -1,11 +1,11 @@
-package net.shiroumi.central;
+package Central;
 
 import java.io.File;
 import java.util.logging.Logger;
 
-import net.shiroumi.central.Configuration.ConfigurationManager;
-
 import org.bukkit.plugin.java.JavaPlugin;
+
+import Central.Configuration.ConfigurationManager;
 
 public class CentralCore extends JavaPlugin {
 	public static CentralCore Instance;
@@ -32,6 +32,6 @@ public class CentralCore extends JavaPlugin {
 	}
 	
 	public static String getLang(){
-		return "en_us"; //cfg.getString("Lang");
+		return cfg.getString("Lang");
 	}
 }

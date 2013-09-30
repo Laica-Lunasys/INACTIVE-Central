@@ -1,4 +1,4 @@
-package net.shiroumi.central;
+package Central;
 
 import org.bukkit.plugin.Plugin;
 
@@ -13,21 +13,16 @@ public class PluginFeatures<T> {
 		featurePlugin = par1Instance;
 		PluginName = par2Name;
 	}
-
-	@SuppressWarnings("unchecked")
-	public static <T> PluginFeatures<T> register(String par1PluginName, String par2ClassPath){
-		try {
-			return (PluginFeatures<T>) register(par1PluginName, Class.forName(par2ClassPath));
-		} catch (ClassNotFoundException e) {
-			return null;
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	public static <T> PluginFeatures<T> register(String par1PluginName, Class<T> par2PluginClass){
+	@SuppressWarnings({ "unchecked", "unused" })
+	public static <T> PluginFeatures<T> register(String par1PluginName){
 		Plugin var1 = null;
+		Class<T> cls = null;
 		if((var1 = CentralCore.getInstance().
 				getServer().getPluginManager().getPlugin(par1PluginName)) != null){
+			try {
+				cls = (Class<T>) Class.forName(var1.getDescription().getMain());
+			} catch (ClassNotFoundException e) {
+			}
 			return new PluginFeatures<T>((T)var1, par1PluginName);
 		}
 		return null;

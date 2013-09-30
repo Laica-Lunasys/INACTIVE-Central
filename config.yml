@@ -1,7 +1,0 @@
-Prefix: '&a * &f' 
-Shell:
-  Player:
-  isOP: true
-lang: en
-isJoinAndSpawn: false
-SpawnWorld: 'world'

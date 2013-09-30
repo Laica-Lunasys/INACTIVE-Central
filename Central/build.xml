@@ -3,21 +3,25 @@
 	 2013/09/22 15:59:52
 	 squarep
 	 ====================================================================== -->
-<project name="Central" default="All">
 
-	<property name="path.classpath" value="libs/**.jar"/>
+<project name="${name.project}" default="All">
+
+	<property name="name.project"   value="Central" />
+	
+	<property name="path.classpath" location="libs/**.jar"/>
 	<property name="path.target"	location="target"/>
 	<property name="path.sources"   location="src"/>
 	<property name="path.classes"   location="bin"/>
 	<property name="path.resources" location="resources"/>
-	<property name="file.destJar"   location="${path.target}/Central.jar"/>
+	<property name="file.destJar"   location="${path.target}/${name.project}.jar"/>
 	
 	<tstamp>
 	 <format property="time.now" pattern="yyyy-MM-dd-HH-mm" />
 	</tstamp>
 	
 	<description>
-		Central Utilities
+		<!-- type here -->
+		
 	</description>
 	
 	<!-- ================================= 
