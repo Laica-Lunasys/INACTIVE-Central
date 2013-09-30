@@ -1,17 +1,17 @@
-package Central.Configuration;
+package net.shiroumi.central.Configuration;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.shiroumi.central.Util.Util;
+
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import Central.Util.Util;
 
 /**
  * @author squarep
