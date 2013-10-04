@@ -8,7 +8,10 @@ alertprefix: '&c[Warning]&f '
 
 #Login/Logout
 loginmessage: '%player has joined server'
-logoutmessage: '%player has quitted server'
+logoutmessage: '%player has quit server'
+
+#PlayerCommand
+changegm: '&6Change %player''s Gamemode.'
 
 #OnlinePlayer
 onlinePlayers1: '&aNow Online Players: %number Player'
