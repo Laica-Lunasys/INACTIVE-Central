@@ -3,7 +3,7 @@ package net.shiroumi.central;
 import java.io.File;
 import java.util.logging.Logger;
 
-import net.shiroumi.central.Configuration.ConfigurationManager;
+import net.shiroumi.central.configuration.ConfigurationManager;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
