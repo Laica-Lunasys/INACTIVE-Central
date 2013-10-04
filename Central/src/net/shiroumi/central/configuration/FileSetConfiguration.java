@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.shiroumi.central.util.Util;
+
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -51,7 +53,7 @@ public class FileSetConfiguration {
 				File.separator + FILE_NAME);
 
 		if ( !file.exists() ) {
-			net.shiroumi.central.util.copyFileFromJar(file, FILE_NAME, false);
+			Util.copyFileFromJar(file, FILE_NAME, false);
 		}
 		resources = YamlConfiguration.loadConfiguration(file);
 	}
