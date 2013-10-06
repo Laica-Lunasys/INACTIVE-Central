@@ -6,6 +6,6 @@ lang: en_us
 
 #afktime: AFKになるまでの時間
 #afkkick: AFKKicktimeで指定した時間に
-afktime: 3m
-afkkicktime: 5m
+afktime: 120
+afkkicktime: 300
 afkkick: false

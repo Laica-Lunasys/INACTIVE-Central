@@ -18,6 +18,7 @@ public class AFKWorker {
 	private static KickChecker kickchk;
 	private static long afkTime = 1000;
 	private static long kickTime = 10000;
+	private static boolean isKick = true;
 	private static Map<Player, Long> playersTimeStamp = new ConcurrentHashMap<Player, Long>();
 	private static Map<Player, Long> playersAFK = new ConcurrentHashMap<Player, Long>();
 
@@ -57,6 +58,11 @@ public class AFKWorker {
 		return kickchk;
 	}
 
+	public static boolean isKick() {
+		return isKick;
+	}
+
+
 	public static void setKickTime(long kickTime) {
 		AFKWorker.kickTime = kickTime;
 	}
@@ -71,6 +77,10 @@ public class AFKWorker {
 
 	public static void setKickChecker(KickChecker kickchk) {
 		AFKWorker.kickchk = kickchk;
+	}
+
+	public static void setKick(boolean isKick) {
+		AFKWorker.isKick = isKick;
 	}
 
 	private static class AFKChecker implements Runnable {
@@ -90,12 +100,14 @@ public class AFKWorker {
 	private static class KickChecker implements Runnable {
 		@Override
 		public void run() {
-			for(Player p : playersAFK.keySet()) {
-				if ((System.currentTimeMillis() - playersAFK.get(p) > kickTime)) {
-					Bukkit.getPluginManager().callEvent(new AFKEvent(p, AFKReason.AUTO, EventType.Long_AFK_Kick, Util.maskedStringReplace( i18n._("afk_kick"), new String[][]{
-						{"%player", p.getDisplayName()}
-					})));
-					QuitPlayer(p);
+			if (isKick) {
+				for(Player p : playersAFK.keySet()) {
+					if ((System.currentTimeMillis() - playersAFK.get(p) > kickTime)) {
+						Bukkit.getPluginManager().callEvent(new AFKEvent(p, AFKReason.AUTO, EventType.Long_AFK_Kick, Util.maskedStringReplace( i18n._("afk_kick"), new String[][]{
+							{"%player", p.getDisplayName()}
+						})));
+						QuitPlayer(p);
+					}
 				}
 			}
 		}

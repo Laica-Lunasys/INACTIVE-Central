@@ -25,13 +25,13 @@ public class CmdAFK extends BaseCommand {
 	public boolean execute(CommandSender par1Sender, Command par2Command,
 			String par3Args, String[] par4Args) {
 		String message;
-		if(par4Args.length < 1) {
-			message = i18n._("genericreason_afk" + (AFKWorker.isPlayerAFK((Player)par1Sender) ? "" : "_returned"));
-		} else {
-			message = par4Args[0];
-		}
 		if (par1Sender instanceof Player) {
 			Player player = (Player) par1Sender;
+			if(par4Args.length < 1) {
+				message = i18n._("genericreason_afk" + (AFKWorker.isPlayerAFK(player) ? "" : "_returned"));
+			} else {
+				message = par4Args[0];
+			}
 			message = Util.maskedStringReplace(message, new String[][]{
 					{"%player", player.getDisplayName()}
 			});

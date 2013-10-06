@@ -32,12 +32,14 @@ public class AFKListener implements Listener {
 			event.getPlayer().kickPlayer(event.getMessage());
 		}
 	}
-	
+
 	@EventHandler
 	public void ListenerAFKMove (PlayerMoveEvent event) {
 		Player player = event.getPlayer();
 		if (AFKWorker.isPlayerAFK(player)) {
-			AFKWorker.setOnline(player, AFKReason.AUTO, i18n._("genericreason_afk_returned"));
+			AFKWorker.setOnline(player, AFKReason.AUTO, Util.maskedStringReplace( i18n._("genericreason_afk_returned"), new String[][]{
+				{"%player", event.getPlayer().getDisplayName()}
+			}));
 		}
 		AFKWorker.updateTimeStamp(player);
 	}

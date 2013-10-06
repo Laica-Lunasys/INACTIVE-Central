@@ -29,7 +29,7 @@ public class AFKEvent extends Event {
 	public static HandlerList getHandlerList() {
 		return handlers;
 	}
-	
+
 	// getter群
 
 	public EventType getType() {

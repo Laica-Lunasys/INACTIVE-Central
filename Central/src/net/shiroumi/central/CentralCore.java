@@ -63,6 +63,9 @@ public class CentralCore extends JavaPlugin {
 		new AFKListener(this);
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getAFKChecker(), 20, 20);
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getKickChecker(), 20, 20);
+		AFKWorker.setAFKTime(cfg.getInteger("afktime"));
+		AFKWorker.setKickTime(cfg.getInteger("afkkicktime"));
+		AFKWorker.setKick(cfg.getBoolean("afkkick"));
 		log.info("Enabled " + this.getDescription().getName() + "!");
 	}
 	@Override
