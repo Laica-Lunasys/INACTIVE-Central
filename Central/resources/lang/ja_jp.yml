@@ -4,6 +4,7 @@
 
 infoprefix: '&a[情報]&f '
 alertprefix: '&c[警告]&f '
+afkPrefix  : '[&e退席中] &f'
 
 joinmessage: '%player さんが接続しました。評価値: %rep'
 
@@ -31,3 +32,6 @@ cmdplayeronly: '&cこのコマンドはコンソールからは実行できま�
 cmdconsoleonly: '&cこのコマンドはプレイヤーからは実行できません'
 cmdillegalargument: '&c引数が足りないか間違っています'
 noreply: '&cメッセージを受け取っていません'
+
+genericreason_afk: '&d%playerさんが一時退席しました'
+genericreason_afk_returned: '&d%playerさんが復帰しました'

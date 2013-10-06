@@ -139,7 +139,7 @@ public class Util {
 				+ par2Messages, par3Maskes));
 	}
 
-	public static void BroatCastMessage(String par1Messages,
+	public static void broadcastMessage(String par1Messages,
 			String[][] par2Maskes) {
 		CentralCore
 				.getInstance()

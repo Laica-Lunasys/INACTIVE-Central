@@ -5,6 +5,7 @@
 #Prefix
 infoprefix: '&a[Info]&f '
 alertprefix: '&c[Warning]&f '
+afkPrefix  : '[&eAFK] &f'
 
 #Login/Logout
 loginmessage: '%player has joined server'
@@ -78,3 +79,7 @@ playernotfound: '&cCan''t find Player : %player'
 cmdplayeronly: '&cCan''t execute this command the Console.'
 cmdconsoleonly: '&cThis command a only execute the Console.'
 cmdillegalargument: '&cIllegal Arguments.'
+
+#Generic Messages
+genericreason_afk: '&d%player is Afk.'
+genericreason_afk_returned: '&d%player is Returned Afk.'

@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.logging.Logger;
 
 import net.shiroumi.central.Configuration.ConfigurationManager;
+import net.shiroumi.central.Listener.AFKListener;
 import net.shiroumi.central.command.CommandRegister;
 import net.shiroumi.central.command.player.CmdAFK;
 import net.shiroumi.central.command.player.CmdClear;
@@ -55,6 +56,8 @@ public class CentralCore extends JavaPlugin {
 		CommandRegister.Register(new CmdOnlinePlayer(this));
 		CommandRegister.Register(new CmdTime(this));
 		CommandRegister.Register(new CmdWeather(this));
+		
+		new AFKListener(this);
 		log.info("Enabled " + this.getDescription().getName() + "!");
 	}
 	@Override

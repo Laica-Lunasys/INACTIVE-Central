@@ -74,7 +74,7 @@ public class CmdGamemode extends BaseCommand {
 		
 		target.setGameMode(mode);
 		
-		Util.BroatCastMessage(i18n._("changegm"), new String[][] {
+		Util.broadcastMessage(i18n._("changegm"), new String[][] {
 			{"%player", target.getDisplayName()}, 
 			{"%gamemode", mode.name()}
 		});

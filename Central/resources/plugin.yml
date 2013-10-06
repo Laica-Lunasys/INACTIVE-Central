@@ -3,4 +3,21 @@ main: net.shiroumi.central.CentralCore
 version: 0.1
 authors: [Laica-Lunasys, squarepp2]
 commands:
-  gm:
+  afk: 
+  clear: 
+  gm: 
+  give: 
+  home:
+  inv: 
+  item: 
+  nopickup: 
+  spawn: 
+  thor: 
+  ban: 
+  broadcast: 
+  kick: 
+  lockdown: 
+  onlineplayers: 
+  time: 
+  weather: 
+  

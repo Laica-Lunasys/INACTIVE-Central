@@ -12,7 +12,7 @@ public class CmdBroadCast extends BaseCommand {
 	private CentralCore plugin;
 
 	public CmdBroadCast(CentralCore par1Plugin) {
-		super(new CommandArgs("broatcast", "server.broadcast", true));
+		super(new CommandArgs("broadcast", "server.broadcast", true));
 		this.plugin = par1Plugin;
 	}
 
