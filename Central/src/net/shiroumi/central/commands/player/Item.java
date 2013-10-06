@@ -1,5 +1,5 @@
 package net.shiroumi.central.commands.player;
 
-public class give {
+public class Item {
 
 }
