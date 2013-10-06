@@ -16,7 +16,7 @@ import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
-public class ZipFileBuilder implements Closeable, Flushable, AutoCloseable {
+public class ZipFileBuilder implements Closeable, Flushable {
 
 	private ZipOutputStream zos;
 
@@ -85,6 +85,7 @@ public class ZipFileBuilder implements Closeable, Flushable, AutoCloseable {
 
 	@Override
 	public void close() throws IOException {
+		this.flush();
 		zos.finish();
 		zos.close();
 	}

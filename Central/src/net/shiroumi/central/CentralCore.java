@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 import net.shiroumi.central.Configuration.ConfigurationManager;
 import net.shiroumi.central.command.CommandRegister;
-import net.shiroumi.central.commands.player.CmdGamemode;
+import net.shiroumi.central.command.player.CmdGamemode;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

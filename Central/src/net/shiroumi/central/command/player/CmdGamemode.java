@@ -1,4 +1,4 @@
-package net.shiroumi.central.commands.player;
+package net.shiroumi.central.command.player;
 
 import net.shiroumi.central.CentralCore;
 import net.shiroumi.central.i18n;
@@ -60,17 +60,15 @@ public class CmdGamemode extends BaseCommand {
 			// /gm Mode Player
 			target = Util.findPlayer(par4Args[1], CentralCore.getInstance(), par1Sender);
 			if (target == null) return false;
-			int m = -1;
-			try {
-				m = Integer.parseInt(par4Args[0]);
-			} catch(NumberFormatException e) {
-				
-			}
-			if (m > 2 || m < 0) {
+			int m = par4Args[0].charAt(0);
+			if (m > 0x29 && m < 0x33 && (par1Sender instanceof Player)) {
+				m = m < 0x31 ? 1 : m < 0x32 ? 0 : 2;
+				mode = GameMode.values()[m];
+				target = (Player) par1Sender;
+			} else {
 				Util.Message(par1Sender, i18n._("cmdillegalargument"), null);
 				return false;
 			}
-			m = m < 1 ? 1 : m < 2 ? 0 : 2;
 			mode = GameMode.values()[m];
 		}
 		
