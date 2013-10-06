@@ -4,20 +4,23 @@ import java.io.File;
 import java.util.logging.Logger;
 
 import net.shiroumi.central.Configuration.ConfigurationManager;
+import net.shiroumi.central.command.CommandRegister;
+import net.shiroumi.central.commands.player.CmdGamemode;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CentralCore extends JavaPlugin {
-	public static CentralCore Instance;
+	private static CentralCore Instance;
 	public static Logger log;
 	private static ConfigurationManager cfg;
 	public CentralCore(){
 		Instance = this;
-		log = this.getLogger();
 	}
 	@Override
 	public void onEnable(){
+		log = this.getLogger();
 		cfg = new ConfigurationManager(this);
+		CommandRegister.Register(new CmdGamemode(this));
 		log.info("Enabled " + this.getDescription().getName() + "!");
 	}
 	@Override
@@ -32,6 +35,6 @@ public class CentralCore extends JavaPlugin {
 	}
 	
 	public static String getLang(){
-		return cfg.getString("Lang");
+		return cfg.getString("lang");
 	}
 }

@@ -1,4 +1,6 @@
 name: Central
-main: Central.CentralCore
+main: net.shiroumi.central.CentralCore
 version: 0.1
 authors: [Laica-Lunasys, squarepp2]
+commands:
+  gm:

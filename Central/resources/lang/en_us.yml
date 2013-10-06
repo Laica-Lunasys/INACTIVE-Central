@@ -11,7 +11,7 @@ loginmessage: '%player has joined server'
 logoutmessage: '%player has quit server'
 
 #PlayerCommand
-changegm: '&6Change %player''s Gamemode.'
+changegm: '&6Change %player''s Gamemode to %gamemode.'
 
 #OnlinePlayer
 onlinePlayers1: '&aNow Online Players: %number Player'
