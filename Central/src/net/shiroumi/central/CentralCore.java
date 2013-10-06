@@ -21,6 +21,7 @@ public class CentralCore extends JavaPlugin {
 		log = this.getLogger();
 		cfg = new ConfigurationManager(this);
 		CommandRegister.Register(new CmdGamemode(this));
+		CommandRegister.Register(new CmdGamemode(this));
 		log.info("Enabled " + this.getDescription().getName() + "!");
 	}
 	@Override

@@ -18,7 +18,7 @@ import org.bukkit.entity.Player;
  */
 public class CmdGamemode extends BaseCommand {
 
-	CentralCore plugin;
+	private CentralCore plugin;
 
 	public CmdGamemode(CentralCore par1Plugin) {
 		super(new CommandArgs("gm", "player.gamemode", true));
