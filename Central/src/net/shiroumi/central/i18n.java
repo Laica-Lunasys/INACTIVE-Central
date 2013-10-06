@@ -1,6 +1,6 @@
 package net.shiroumi.central;
 
-import net.shiroumi.central.Configuration.ConfigurationManager;
+import net.shiroumi.central.configuration.ConfigurationManager;
 /**
  * @author squarep
  */
