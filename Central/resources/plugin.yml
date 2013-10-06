@@ -3,6 +3,7 @@ main: net.shiroumi.central.CentralCore
 version: 0.1
 authors: [Laica-Lunasys, squarepp2]
 commands:
+<<<<<<< HEAD
   afk: 
   clear: 
   gm: 
@@ -21,3 +22,23 @@ commands:
   time: 
   weather: 
   
+=======
+  gm:
+  invisible:
+  spawn:
+  setspawn:
+  home:
+  sethome:
+  thor:
+  nopickup:
+  item:
+  afk:
+  kick:
+  ban:
+  broadcast:
+  who:
+  time:
+  weather:
+  clear:
+  lock:
+>>>>>>> branch 'master' of https://github.com/Laica-Lunasys/Central.git
