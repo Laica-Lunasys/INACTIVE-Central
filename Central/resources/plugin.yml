@@ -4,3 +4,20 @@ version: 0.1
 authors: [Laica-Lunasys, squarepp2]
 commands:
   gm:
+  invisible:
+  spawn:
+  setspawn:
+  home:
+  sethome:
+  thor:
+  nopickup:
+  item:
+  afk:
+  kick:
+  ban:
+  broadcast:
+  who:
+  time:
+  weather:
+  clear:
+  lock:
