@@ -1,5 +1,5 @@
 ####################################
-# Central Language File (English)                       #
+# Central Language File (English)  #
 ####################################
 
 #Prefix
@@ -12,7 +12,7 @@ logoutmessage: '%player has quitted server'
 
 #OnlinePlayer
 onlinePlayers1: '&aNow Online Players: %number Player'
-onlinePlayers2: '%onlineuser
+onlinePlayers2: '%onlineuser'
 
 #ServerReload
 serverreload: '&aThis server is reloading...'

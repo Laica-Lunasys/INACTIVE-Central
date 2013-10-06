@@ -6,28 +6,27 @@
 
 <project name="${name.project}" default="All">
 
-	<property name="name.project"   value="Central" />
-	
-	<property name="path.classpath" location="libs/**.jar"/>
-	<property name="path.target"	location="target"/>
-	<property name="path.sources"   location="src"/>
-	<property name="path.classes"   location="bin"/>
-	<property name="path.resources" location="resources"/>
-	<property name="file.destJar"   location="${path.target}/${name.project}.jar"/>
-	
-	<tstamp>
-	 <format property="time.now" pattern="yyyy-MM-dd-HH-mm" />
-	</tstamp>
-	
+	<property name="name.project"   value   = "Central" />
+
+	<property name="path.classpath" location= "libs/**.jar"/>
+	<property name="path.target"	location= "target"/>
+	<property name="path.sources"   location= "src"/>
+	<property name="path.classes"   location= "bin"/>
+	<property name="path.resources" location= "resources"/>
+	<property name="test.src"       location= "test"/>
+	<property name="test.classes"   location= "${path.target}/test"/>
+	<property name="test.classname" value   = "net.squarep.test.TestMain"/>
+	<property name="file.destJar"   location= "${path.target}/${name.project}.jar"/>
+
 	<description>
 		<!-- type here -->
 		
 	</description>
-	
+
 	<!-- ================================= 
-	  target: All
+		  target: All
 		 ================================= -->
-	<target name="All" depends="Build, FCopy, JAR" description="Compile -> Packing">
+	<target name="All" depends="Clean, Build, FCopy, JAR" description="Compile -> Packing">
 		<length file="${file.destJar}" property="Jar.size"/>
 		<script language="javascript">
 			<![CDATA[
@@ -48,7 +47,7 @@
 		<javac srcdir = "${path.sources}" destdir = "${path.classes}"
 			   classpath = "${path.classpath}" includeantruntime="false"/>
 	</target>
-	
+
 	<!-- ================================= 
 		  target: FCopy				  
 		================================= -->
@@ -60,10 +59,32 @@
 		  <fileset dir="${path.resources}/" />
 		</copy>
 	</target>
+
 	<!-- ================================= 
 		  target: JAR
 		================================= -->
 	<target name="JAR" description="Make-JAR">
 		<jar destfile="${file.destJar}" basedir="${path.target}/classes"></jar>
 	</target>
+
+	<!-- ================================= 
+		  target: Clean
+		================================= -->
+	<target name="Clean" description="Cleaning Target Directory">
+		<deltree dir="${path.target}"/>
+		<deltree dir="${test.classes}"/>
+		<echo message="Success Delete." />
+	</target>
+
+	<!-- ================================= 
+		  target: Test
+		================================= -->
+	<target name="Test" description="Test Project." depends="Clean, Build">
+		<mkdir dir="${test.classes}"/>
+		<javac srcdir = "${test.src}" destdir = "${test.classes}"
+			   classpath = "${path.classpath};${path.classes}" includeantruntime="false"
+			   encoding="UTF-8" taskname="Test"/>
+		<java classname = "${test.classname}" classpath = "${test.classes};${path.classes}"/>
+	</target>
+
 </project>
