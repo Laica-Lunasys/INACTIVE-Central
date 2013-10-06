@@ -35,3 +35,4 @@ noreply: '&cメッセージを受け取っていません'
 
 genericreason_afk: '&d%playerさんが一時退席しました'
 genericreason_afk_returned: '&d%playerさんが復帰しました'
+afk_kick: '&d%playerさんは一時退席時間が長かったためキックされました'

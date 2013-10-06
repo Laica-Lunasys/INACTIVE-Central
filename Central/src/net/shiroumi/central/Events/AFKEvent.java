@@ -74,6 +74,7 @@ public class AFKEvent extends Event {
 
 	public static enum EventType {
 		Go_in_AFK,
-		Returned_AFK
+		Returned_AFK,
+		Long_AFK_Kick
 	}
 }

@@ -23,13 +23,16 @@ import net.shiroumi.central.command.server.CmdLockDown;
 import net.shiroumi.central.command.server.CmdOnlinePlayer;
 import net.shiroumi.central.command.server.CmdTime;
 import net.shiroumi.central.command.server.CmdWeather;
+import net.shiroumi.central.worker.AFKWorker;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+@SuppressWarnings("unused")
 public class CentralCore extends JavaPlugin {
 	private static CentralCore Instance;
 	public static Logger log;
 	private static ConfigurationManager cfg;
+	
 	public CentralCore(){
 		Instance = this;
 	}
@@ -58,11 +61,13 @@ public class CentralCore extends JavaPlugin {
 		CommandRegister.Register(new CmdWeather(this));
 		
 		new AFKListener(this);
+		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getAFKChecker(), 20, 20);
+		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getKickChecker(), 20, 20);
 		log.info("Enabled " + this.getDescription().getName() + "!");
 	}
 	@Override
 	public void onDisable(){
-		
+		this.getServer().getScheduler().cancelTasks(this);
 	}
 	
 	public static CentralCore getInstance(){

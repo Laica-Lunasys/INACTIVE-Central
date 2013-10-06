@@ -2,10 +2,16 @@ package net.shiroumi.central.Listener;
 
 import net.shiroumi.central.i18n;
 import net.shiroumi.central.Events.AFKEvent;
+import net.shiroumi.central.Events.AFKEvent.AFKReason;
+import net.shiroumi.central.Events.AFKEvent.EventType;
 import net.shiroumi.central.Util.Util;
+import net.shiroumi.central.worker.AFKWorker;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -22,5 +28,21 @@ public class AFKListener implements Listener {
 		sb.append(" ");
 		sb.append(event.getMessage());
 		Util.broadcastMessage(sb.toString(), null);
+		if (event.getType() == EventType.Long_AFK_Kick) {
+			event.getPlayer().kickPlayer(event.getMessage());
+		}
+	}
+	
+	@EventHandler
+	public void ListenerAFKMove (PlayerMoveEvent event) {
+		Player player = event.getPlayer();
+		if (AFKWorker.isPlayerAFK(player)) {
+			AFKWorker.setOnline(player, AFKReason.AUTO, i18n._("genericreason_afk_returned"));
+		}
+		AFKWorker.updateTimeStamp(player);
+	}
+	@EventHandler
+	public void ListenerQuit (PlayerQuitEvent event) {
+		AFKWorker.QuitPlayer(event.getPlayer());
 	}
 }
