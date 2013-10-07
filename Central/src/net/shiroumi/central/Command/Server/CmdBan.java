@@ -1,18 +1,18 @@
-package net.shiroumi.central.command.player;
+package net.shiroumi.central.Command.Server;
 
 import net.shiroumi.central.CentralCore;
-import net.shiroumi.central.command.BaseCommand;
-import net.shiroumi.central.command.CommandArgs;
+import net.shiroumi.central.Command.BaseCommand;
+import net.shiroumi.central.Command.CommandArgs;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-public class CmdThor extends BaseCommand {
+public class CmdBan extends BaseCommand {
 
 	private CentralCore plugin;
 
-	public CmdThor(CentralCore par1Plugin) {
-		super(new CommandArgs("thor", "player.thor", false));
+	public CmdBan(CentralCore par1Plugin) {
+		super(new CommandArgs("ban", "server.ban", true));
 		this.plugin = par1Plugin;
 	}
 
@@ -21,4 +21,5 @@ public class CmdThor extends BaseCommand {
 			String par3Args, String[] par4Args) {
 		return false;
 	}
+
 }

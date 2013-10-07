@@ -3,39 +3,39 @@ package net.shiroumi.central;
 import java.io.File;
 import java.util.logging.Logger;
 
+import net.shiroumi.central.Command.CommandRegister;
+import net.shiroumi.central.Command.Player.CmdAFK;
+import net.shiroumi.central.Command.Player.CmdClear;
+import net.shiroumi.central.Command.Player.CmdGamemode;
+import net.shiroumi.central.Command.Player.CmdGive;
+import net.shiroumi.central.Command.Player.CmdHome;
+import net.shiroumi.central.Command.Player.CmdInvisible;
+import net.shiroumi.central.Command.Player.CmdItem;
+import net.shiroumi.central.Command.Player.CmdNoPickup;
+import net.shiroumi.central.Command.Player.CmdSpawn;
+import net.shiroumi.central.Command.Player.CmdThor;
+import net.shiroumi.central.Command.Server.CmdBan;
+import net.shiroumi.central.Command.Server.CmdBroadCast;
+import net.shiroumi.central.Command.Server.CmdKick;
+import net.shiroumi.central.Command.Server.CmdLockDown;
+import net.shiroumi.central.Command.Server.CmdOnlinePlayer;
+import net.shiroumi.central.Command.Server.CmdTime;
+import net.shiroumi.central.Command.Server.CmdWeather;
 import net.shiroumi.central.Configuration.ConfigurationManager;
 import net.shiroumi.central.Listener.AFKListener;
-import net.shiroumi.central.command.CommandRegister;
-import net.shiroumi.central.command.player.CmdAFK;
-import net.shiroumi.central.command.player.CmdClear;
-import net.shiroumi.central.command.player.CmdGamemode;
-import net.shiroumi.central.command.player.CmdGive;
-import net.shiroumi.central.command.player.CmdHome;
-import net.shiroumi.central.command.player.CmdInvisible;
-import net.shiroumi.central.command.player.CmdItem;
-import net.shiroumi.central.command.player.CmdNoPickup;
-import net.shiroumi.central.command.player.CmdSpawn;
-import net.shiroumi.central.command.player.CmdThor;
-import net.shiroumi.central.command.server.CmdBan;
-import net.shiroumi.central.command.server.CmdBroadCast;
-import net.shiroumi.central.command.server.CmdKick;
-import net.shiroumi.central.command.server.CmdLockDown;
-import net.shiroumi.central.command.server.CmdOnlinePlayer;
-import net.shiroumi.central.command.server.CmdTime;
-import net.shiroumi.central.command.server.CmdWeather;
-import net.shiroumi.central.worker.AFKWorker;
+import net.shiroumi.central.Worker.AFKWorker;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-@SuppressWarnings("unused")
 public class CentralCore extends JavaPlugin {
 	private static CentralCore Instance;
 	public static Logger log;
 	private static ConfigurationManager cfg;
-	
+
 	public CentralCore(){
 		Instance = this;
 	}
+
 	@Override
 	public void onEnable(){
 		log = this.getLogger();
@@ -59,24 +59,25 @@ public class CentralCore extends JavaPlugin {
 		CommandRegister.Register(new CmdOnlinePlayer(this));
 		CommandRegister.Register(new CmdTime(this));
 		CommandRegister.Register(new CmdWeather(this));
-		
+
 		new AFKListener(this);
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getAFKChecker(), 20, 20);
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getKickChecker(), 20, 20);
-		AFKWorker.setAFKTime(cfg.getInteger("afktime"));
-		AFKWorker.setKickTime(cfg.getInteger("afkkicktime"));
+		AFKWorker.setAFKTime(cfg.getInteger("afktime") * 20);
+		AFKWorker.setKickTime(cfg.getInteger("afkkicktime") * 20);
 		AFKWorker.setKick(cfg.getBoolean("afkkick"));
 		log.info("Enabled " + this.getDescription().getName() + "!");
 	}
+
 	@Override
 	public void onDisable(){
 		this.getServer().getScheduler().cancelTasks(this);
 	}
-	
+
 	public static CentralCore getInstance(){
 		return Instance;
 	}
-	
+
 	public File getPluginJarFile(){
 		return this.getFile();
 	}

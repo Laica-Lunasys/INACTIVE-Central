@@ -1,18 +1,18 @@
-package net.shiroumi.central.command.server;
+package net.shiroumi.central.Command.Player;
 
 import net.shiroumi.central.CentralCore;
-import net.shiroumi.central.command.BaseCommand;
-import net.shiroumi.central.command.CommandArgs;
+import net.shiroumi.central.Command.BaseCommand;
+import net.shiroumi.central.Command.CommandArgs;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-public class CmdWeather extends BaseCommand {
+public class CmdSpawn extends BaseCommand {
 
 	private CentralCore plugin;
 
-	public CmdWeather(CentralCore par1Plugin) {
-		super(new CommandArgs("weather", "server.weather", true));
+	public CmdSpawn(CentralCore par1Plugin) {
+		super(new CommandArgs("spawn", "player.spawn", false));
 		this.plugin = par1Plugin;
 	}
 

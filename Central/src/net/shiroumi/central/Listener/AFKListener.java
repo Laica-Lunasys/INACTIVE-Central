@@ -5,7 +5,7 @@ import net.shiroumi.central.Events.AFKEvent;
 import net.shiroumi.central.Events.AFKEvent.AFKReason;
 import net.shiroumi.central.Events.AFKEvent.EventType;
 import net.shiroumi.central.Util.Util;
-import net.shiroumi.central.worker.AFKWorker;
+import net.shiroumi.central.Worker.AFKWorker;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,7 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 
 public class AFKListener implements Listener {
-	
+
 	public AFKListener (JavaPlugin par1Plugin) {
 		par1Plugin.getServer().getPluginManager().registerEvents(this, par1Plugin);
 	}
@@ -43,6 +43,7 @@ public class AFKListener implements Listener {
 		}
 		AFKWorker.updateTimeStamp(player);
 	}
+
 	@EventHandler
 	public void ListenerQuit (PlayerQuitEvent event) {
 		AFKWorker.QuitPlayer(event.getPlayer());

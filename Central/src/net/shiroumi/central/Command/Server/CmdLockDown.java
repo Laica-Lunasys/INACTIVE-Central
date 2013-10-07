@@ -1,18 +1,18 @@
-package net.shiroumi.central.command.server;
+package net.shiroumi.central.Command.Server;
 
 import net.shiroumi.central.CentralCore;
-import net.shiroumi.central.command.BaseCommand;
-import net.shiroumi.central.command.CommandArgs;
+import net.shiroumi.central.Command.BaseCommand;
+import net.shiroumi.central.Command.CommandArgs;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-public class CmdBroadCast extends BaseCommand {
+public class CmdLockDown extends BaseCommand {
 
 	private CentralCore plugin;
 
-	public CmdBroadCast(CentralCore par1Plugin) {
-		super(new CommandArgs("broadcast", "server.broadcast", true));
+	public CmdLockDown(CentralCore par1Plugin) {
+		super(new CommandArgs("lockdown", "server.lockdown", true));
 		this.plugin = par1Plugin;
 	}
 

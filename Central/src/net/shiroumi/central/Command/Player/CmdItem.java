@@ -1,18 +1,18 @@
-package net.shiroumi.central.command.server;
+package net.shiroumi.central.Command.Player;
 
 import net.shiroumi.central.CentralCore;
-import net.shiroumi.central.command.BaseCommand;
-import net.shiroumi.central.command.CommandArgs;
+import net.shiroumi.central.Command.BaseCommand;
+import net.shiroumi.central.Command.CommandArgs;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
-public class CmdOnlinePlayer extends BaseCommand {
+public class CmdItem extends BaseCommand {
 
 	private CentralCore plugin;
 
-	public CmdOnlinePlayer(CentralCore par1Plugin) {
-		super(new CommandArgs("onlineplayers", "server.onlineplayer", true));
+	public CmdItem(CentralCore par1Plugin) {
+		super(new CommandArgs("item", "player.item", false));
 		this.plugin = par1Plugin;
 	}
 
@@ -21,5 +21,4 @@ public class CmdOnlinePlayer extends BaseCommand {
 			String par3Args, String[] par4Args) {
 		return false;
 	}
-
 }
