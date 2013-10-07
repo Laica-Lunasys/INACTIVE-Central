@@ -16,6 +16,10 @@
 	<property name="test.src"       location= "test"/>
 	<property name="test.classes"   location= "${path.target}/test"/>
 	<property name="test.classname" value   = "net.squarep.test.TestMain"/>
+	<property name="run.basedir"    location= "${path.target}/run"/>
+	<property name="run.plugindir"  location= "${run.basedir}/plugins/"/>
+	<property name="run.bukkitjar"  location= "libs/craftbukkit-1.6.2-R1.0.jar"/>
+	<property name="run.vmargs"     value   = ""/>
 	<property name="file.destJar"   location= "${path.target}/${name.project}.jar"/>
 
 	<description>
@@ -71,8 +75,13 @@
 		  target: Clean
 		================================= -->
 	<target name="Clean" description="Cleaning Target Directory">
-		<deltree dir="${path.target}"/>
-		<deltree dir="${test.classes}"/>
+		    <delete>
+		      <fileset dir="${path.classes}" includes="*.class"/>
+			  <fileset dir="${test.classes}" includes="*.class"/>
+			  <fileset file="${file.destJar}"/>
+			  <fileset dir="${run.plugindir}" includes="*.jar"/>
+		      <fileset dir="${run.basedir}" excludes="**.*"/>
+		    </delete>
 		<echo message="Success Delete." />
 	</target>
 
@@ -87,4 +96,16 @@
 		<java classname = "${test.classname}" classpath = "${test.classes};${path.classes}"/>
 	</target>
 
+	<!-- ================================= 
+		  target: Run
+		================================= -->
+	<target name="Run" description="Run Project." depends="All">
+		<mkdir dir="${run.plugindir}"/>
+		<copy todir="${run.plugindir}" file="${file.destJar}" />
+		<exec executable="cmd" dir="${run.basedir}" spawn="true" taskname="CraftBukkit">
+			<arg value="/c" />
+			<arg value="start" />
+			<arg line="java -jar ${run.bukkitjar} ${run.vmargs}"/>
+		</exec>
+	</target>
 </project>
