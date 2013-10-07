@@ -20,7 +20,7 @@
 	<property name="run.plugindir"  location= "${run.basedir}/plugins/"/>
 	<property name="run.bukkitjar"  location= "libs/craftbukkit-1.6.2-R1.0.jar"/>
 	<property name="run.vmargs"     value   = ""/>
-	<property name="file.destJar"   location= "${path.target}/${name.project}.jar"/>
+	<property name="file.destJar"   value   = "${name.project}.jar"/>
 
 	<description>
 		<!-- type here -->
@@ -68,7 +68,7 @@
 		  target: JAR
 		================================= -->
 	<target name="JAR" description="Make-JAR">
-		<jar destfile="${file.destJar}" basedir="${path.target}/classes"></jar>
+		<jar destfile="${path.target}/${file.destJar}" basedir="${path.target}/classes"></jar>
 	</target>
 
 	<!-- ================================= 
@@ -79,7 +79,7 @@
 		      <fileset dir="${path.classes}" includes="*.class"/>
 			  <fileset dir="${test.classes}" includes="*.class"/>
 			  <fileset file="${file.destJar}"/>
-			  <fileset dir="${run.plugindir}" includes="*.jar"/>
+			  <fileset dir="${run.plugindir}" includes="${file.destJar}"/>
 		      <fileset dir="${run.basedir}" excludes="**.*"/>
 		    </delete>
 		<echo message="Success Delete." />
@@ -101,7 +101,7 @@
 		================================= -->
 	<target name="Run" description="Run Project." depends="All">
 		<mkdir dir="${run.plugindir}"/>
-		<copy todir="${run.plugindir}" file="${file.destJar}" />
+		<copy todir="${run.plugindir}" file="${path.target}/${file.destJar}" />
 		<exec executable="cmd" dir="${run.basedir}" spawn="true" taskname="CraftBukkit">
 			<arg value="/c" />
 			<arg value="start" />

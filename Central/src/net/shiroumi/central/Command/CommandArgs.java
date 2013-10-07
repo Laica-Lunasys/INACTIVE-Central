@@ -1,4 +1,4 @@
-package net.shiroumi.central.command;
+package net.shiroumi.central.Command;
 
 /**
  * @author squarep

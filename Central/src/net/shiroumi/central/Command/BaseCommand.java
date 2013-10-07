@@ -1,4 +1,4 @@
-package net.shiroumi.central.command;
+package net.shiroumi.central.Command;
 
 import net.shiroumi.central.CentralCore;
 import net.shiroumi.central.i18n;

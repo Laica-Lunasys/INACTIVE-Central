@@ -84,3 +84,6 @@ cmdillegalargument: '&cIllegal Arguments.'
 genericreason_afk: '&d%player is Afk.'
 genericreason_afk_returned: '&d%player is Returned Afk.'
 afk_kick: 'a Longer AFK %player.'
+
+enabledNopickup : '&aNo pickup mode Enabled'
+disabledNopickup : '&cNo Pickup mode Disabled.'

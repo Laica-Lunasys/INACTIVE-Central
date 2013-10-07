@@ -1,10 +1,10 @@
-package net.shiroumi.central.command.player;
+package net.shiroumi.central.Command.Player;
 
 import net.shiroumi.central.CentralCore;
 import net.shiroumi.central.i18n;
+import net.shiroumi.central.Command.BaseCommand;
+import net.shiroumi.central.Command.CommandArgs;
 import net.shiroumi.central.Util.Util;
-import net.shiroumi.central.command.BaseCommand;
-import net.shiroumi.central.command.CommandArgs;
 
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -16,13 +16,11 @@ import org.bukkit.entity.Player;
  * @author squarep
  *
  */
-public class CmdGamemode extends BaseCommand {
 
-	private CentralCore plugin;
+public class CmdGamemode extends BaseCommand {
 
 	public CmdGamemode(CentralCore par1Plugin) {
 		super(new CommandArgs("gm", "player.gamemode", true));
-		this.plugin = par1Plugin;
 	}
 
 	@Override
@@ -71,7 +69,7 @@ public class CmdGamemode extends BaseCommand {
 			}
 			mode = GameMode.values()[m];
 		}
-		
+
 		target.setGameMode(mode);
 		
 		Util.broadcastMessage(i18n._("changegm"), new String[][] {
