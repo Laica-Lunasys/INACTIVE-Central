@@ -3,7 +3,7 @@ package net.shiroumi.central.Command.Player;
 import net.shiroumi.central.CentralCore;
 import net.shiroumi.central.i18n;
 import net.shiroumi.central.Command.BaseCommand;
-import net.shiroumi.central.Command.CommandArgs;
+import net.shiroumi.central.Command.CommandDescription;
 import net.shiroumi.central.Util.Util;
 
 import org.bukkit.command.Command;
@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 public class CmdClear extends BaseCommand {
 
 	public CmdClear(CentralCore par1Plugin) {
-		super(new CommandArgs("clear", "player.clear", false));
+		super(new CommandDescription("clear", "player.clear", false));
 	}
 
 	@Override

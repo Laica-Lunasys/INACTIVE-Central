@@ -116,6 +116,8 @@ public class AFKWorker {
 	public synchronized static void init () {
 		setAFKChecker(new AFKChecker());
 		setKickChecker(new KickChecker());
+		playersAFK.clear();
+		playersTimeStamp.clear();
 	}
 	
 

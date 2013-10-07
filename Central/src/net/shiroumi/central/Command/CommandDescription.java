@@ -3,10 +3,10 @@ package net.shiroumi.central.Command;
 /**
  * @author squarep
  */
-public class CommandArgs {
+public class CommandDescription {
 	private String perm, cmd;
 	private boolean isCons;
-	public CommandArgs(String par1Cmd, String par2Perm, boolean isConsole){
+	public CommandDescription(String par1Cmd, String par2Perm, boolean isConsole){
 		cmd = par1Cmd;
 		perm = "Central." + par2Perm;
 		isCons = isConsole;

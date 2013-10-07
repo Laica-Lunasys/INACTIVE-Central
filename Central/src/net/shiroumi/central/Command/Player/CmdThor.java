@@ -2,7 +2,7 @@ package net.shiroumi.central.Command.Player;
 
 import net.shiroumi.central.CentralCore;
 import net.shiroumi.central.Command.BaseCommand;
-import net.shiroumi.central.Command.CommandArgs;
+import net.shiroumi.central.Command.CommandDescription;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -12,7 +12,7 @@ public class CmdThor extends BaseCommand {
 	private CentralCore plugin;
 
 	public CmdThor(CentralCore par1Plugin) {
-		super(new CommandArgs("thor", "player.thor", false));
+		super(new CommandDescription("thor", "player.thor", false));
 		this.plugin = par1Plugin;
 	}
 

@@ -3,7 +3,7 @@ package net.shiroumi.central.Command.Player;
 import net.shiroumi.central.CentralCore;
 import net.shiroumi.central.i18n;
 import net.shiroumi.central.Command.BaseCommand;
-import net.shiroumi.central.Command.CommandArgs;
+import net.shiroumi.central.Command.CommandDescription;
 import net.shiroumi.central.Util.Util;
 import net.shiroumi.central.Worker.NopickupWorker;
 
@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 public class CmdNoPickup extends BaseCommand {
 
 	public CmdNoPickup(CentralCore par1Plugin) {
-		super(new CommandArgs("nopickup", "player.nopickup", false));
+		super(new CommandDescription("nopickup", "player.nopickup", false));
 	}
 
 	@Override

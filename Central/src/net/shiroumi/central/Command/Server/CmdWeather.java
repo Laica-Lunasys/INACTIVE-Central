@@ -2,7 +2,7 @@ package net.shiroumi.central.Command.Server;
 
 import net.shiroumi.central.CentralCore;
 import net.shiroumi.central.Command.BaseCommand;
-import net.shiroumi.central.Command.CommandArgs;
+import net.shiroumi.central.Command.CommandDescription;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -12,7 +12,7 @@ public class CmdWeather extends BaseCommand {
 	private CentralCore plugin;
 
 	public CmdWeather(CentralCore par1Plugin) {
-		super(new CommandArgs("weather", "server.weather", true));
+		super(new CommandDescription("weather", "server.weather", true));
 		this.plugin = par1Plugin;
 	}
 

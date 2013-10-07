@@ -24,6 +24,7 @@ import net.shiroumi.central.Command.Server.CmdWeather;
 import net.shiroumi.central.Configuration.ConfigurationManager;
 import net.shiroumi.central.Listener.AFKListener;
 import net.shiroumi.central.Worker.AFKWorker;
+import net.shiroumi.central.Worker.NopickupWorker;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -66,12 +67,15 @@ public class CentralCore extends JavaPlugin {
 		AFKWorker.setAFKTime(cfg.getInteger("afktime") * 20);
 		AFKWorker.setKickTime(cfg.getInteger("afkkicktime") * 20);
 		AFKWorker.setKick(cfg.getBoolean("afkkick"));
+		NopickupWorker.getPlayerNopickupMap().clear();
+		;
 		log.info("Enabled " + this.getDescription().getName() + "!");
 	}
 
 	@Override
 	public void onDisable(){
 		this.getServer().getScheduler().cancelTasks(this);
+		log.info("Disabled " + this.getDescription().getName() + "!");
 	}
 
 	public static CentralCore getInstance(){
@@ -81,7 +85,7 @@ public class CentralCore extends JavaPlugin {
 	public File getPluginJarFile(){
 		return this.getFile();
 	}
-	
+
 	public static String getLang(){
 		return cfg.getString("lang");
 	}

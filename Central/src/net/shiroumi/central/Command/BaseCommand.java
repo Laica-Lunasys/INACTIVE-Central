@@ -14,8 +14,8 @@ import org.bukkit.command.ConsoleCommandSender;
  */
 
 public abstract class BaseCommand implements CommandExecutor {
-	protected final CommandArgs command;
-	protected BaseCommand(CommandArgs par1Cmd){
+	protected final CommandDescription command;
+	protected BaseCommand(CommandDescription par1Cmd){
 		command = par1Cmd;
 	}
 	public String getCmd(){

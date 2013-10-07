@@ -2,7 +2,7 @@ package net.shiroumi.central.Command.Server;
 
 import net.shiroumi.central.CentralCore;
 import net.shiroumi.central.Command.BaseCommand;
-import net.shiroumi.central.Command.CommandArgs;
+import net.shiroumi.central.Command.CommandDescription;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -12,7 +12,7 @@ public class CmdLockDown extends BaseCommand {
 	private CentralCore plugin;
 
 	public CmdLockDown(CentralCore par1Plugin) {
-		super(new CommandArgs("lockdown", "server.lockdown", true));
+		super(new CommandDescription("lockdown", "server.lockdown", true));
 		this.plugin = par1Plugin;
 	}
 
