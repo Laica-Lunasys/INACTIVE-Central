@@ -20,35 +20,20 @@ public class CmdNoPickup extends BaseCommand {
 	@Override
 	public boolean execute(CommandSender par1Sender, Command par2Command,
 			String par3Args, String[] par4Args) {
-		Player[] players;
+		Player player;
 		if (par4Args.length < 1) {
 			if (!(par1Sender instanceof Player)) {
 				Util.Message(par1Sender, i18n._("cmdillegalargument"), null);
 				return false;
 			} else {
-				players = new Player[par4Args.length];
+				player = (Player) par1Sender;
 			}
 		} else {
-			Player player = (Player) par1Sender;
-			if (par4Args.length < 1) {
-				players = new Player[] { player };
-			} else {
-				players = new Player[par4Args.length];
-				for (int i = 0; i < par4Args.length; i++) {
-					players[i] = Util.findPlayer(par4Args[i],
-							CentralCore.getInstance(), par1Sender);
-					if (players[i] == null) {
-						return false;
-					}
-				}
-			}
+			player = Util.findPlayer(par4Args[0], CentralCore.getInstance(), par1Sender);
+			if(player == null) return false;
 		}
-		for (Player p : players) {
-			NopickupWorker.setPlayerNopickup(p, !NopickupWorker.isPlayerNopickup(p));
-			Util.Message(par1Sender, i18n._((NopickupWorker.isPlayerNopickup(p) ? "enabled":"disabled").concat("Nopickup")), new String[][]{
-				{"%player", p.getDisplayName()}
-			});
-		}
+			NopickupWorker.setPlayerNopickup(player, !NopickupWorker.isPlayerNopickup(player));
+			Util.Message(par1Sender, i18n._((NopickupWorker.isPlayerNopickup(player) ? "enabled":"disabled").concat("Nopickup")), null);
 		return true;
 	}
 }

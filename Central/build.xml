@@ -57,7 +57,7 @@
 		================================= -->
 	<target name="FCopy" description="Prepare Make-JAR, FileCopy">
 		<copy todir="${path.target}/classes" >
-		  <fileset dir="${path.classes}/" />
+			  <fileset dir="${path.classes}/" />
 		</copy>
 		<copy todir="${path.target}/classes" >
 		  <fileset dir="${path.resources}/" />

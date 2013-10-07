@@ -11,10 +11,12 @@ commands:
   inv: 
   item: 
   nopickup: 
+    aliases: np
   spawn: 
   thor: 
   ban: 
   broadcast: 
+    aliases: bc
   kick: 
   lockdown: 
   onlineplayers: 

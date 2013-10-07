@@ -6,6 +6,7 @@
 infoprefix: '&a[Info]&f '
 alertprefix: '&c[Warning]&f '
 afkPrefix  : '[&eAFK] &f'
+broadcastPrefix : '&d[BroadCast]'
 
 #Login/Logout
 loginmessage: '%player has joined server'
@@ -13,6 +14,7 @@ logoutmessage: '%player has quit server'
 
 #PlayerCommand
 changegm: '&6Change %player''s Gamemode to %gamemode.'
+spawnmessage: '&dSpawned %player.'
 
 #OnlinePlayer
 onlinePlayers1: '&aNow Online Players: %number Player'

@@ -45,14 +45,15 @@ public class Util {
 
 	public static Player findPlayer(String par1Player, CentralCore par2Plugin,
 			CommandSender par3Sender) {
-		if (par2Plugin.getServer().getPlayer(par1Player) == null) {
+		Player p = par2Plugin.getServer().getPlayer(par1Player);
+		if (p == null) {
 			if (par3Sender != null) {
 				Message(par3Sender, _("playernotfound"), new String[][] { {
 						"%player", par1Player } });
 			}
 			return null;
 		}
-		return par2Plugin.getServer().getPlayer(par1Player);
+		return p;
 	}
 
 	public static boolean hasPerm(String par1Perm, CommandSender par2Player,

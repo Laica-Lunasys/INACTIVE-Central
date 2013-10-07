@@ -22,64 +22,64 @@ public class AFKWorker {
 	private static Map<Player, Long> playersTimeStamp = new ConcurrentHashMap<Player, Long>();
 	private static Map<Player, Long> playersAFK = new ConcurrentHashMap<Player, Long>();
 
-	public synchronized static void setAFK (Player par1Player, AFKReason par2Reason, String par3Message) {
+	public static void setAFK (Player par1Player, AFKReason par2Reason, String par3Message) {
 		playersAFK.put(par1Player, System.currentTimeMillis());
 
 		Bukkit.getPluginManager().callEvent(new AFKEvent(par1Player, par2Reason, EventType.Go_in_AFK, par3Message));
 	}
 
-	public synchronized static void setOnline (Player par1Player, AFKReason par2Reason, String par3Message) {
+	public static void setOnline (Player par1Player, AFKReason par2Reason, String par3Message) {
 		playersAFK.remove(par1Player);
 
 		Bukkit.getPluginManager().callEvent(new AFKEvent(par1Player, par2Reason, EventType.Returned_AFK, par3Message));
 	}
 
-	public synchronized static boolean isPlayerAFK (Player par1Player) {
+	public static boolean isPlayerAFK (Player par1Player) {
 		return playersAFK.containsKey(par1Player);
 	}
 
-	public synchronized static void updateTimeStamp (Player par1Player) {
+	public static void updateTimeStamp (Player par1Player) {
 		playersTimeStamp.put(par1Player, System.currentTimeMillis());
 	}
 
-	public synchronized static long getAFKTime () {
+	public static long getAFKTime () {
 		return afkTime;
 	}
 
-	public synchronized static AFKChecker getAFKChecker () {
+	public static AFKChecker getAFKChecker () {
 		return afkchk;
 	}
 
-	public synchronized static long getKickTime () {
+	public static long getKickTime () {
 		return kickTime;
 	}
 
-	public synchronized static KickChecker getKickChecker () {
+	public static KickChecker getKickChecker () {
 		return kickchk;
 	}
 
-	public synchronized static boolean isKick () {
+	public static boolean isKick () {
 		return isKick;
 	}
 
 
-	public synchronized static void setKickTime (long kickTime) {
+	public static void setKickTime (long kickTime) {
 		AFKWorker.kickTime = kickTime;
 	}
 
-	public synchronized static void setAFKTime (long afkTime) {
+	public static void setAFKTime (long afkTime) {
 		AFKWorker.afkTime = afkTime;
 	}
 
-	public synchronized static void setAFKChecker (AFKChecker afkchk) {
+	public static void setAFKChecker (AFKChecker afkchk) {
 		AFKWorker.afkchk = afkchk;
 	}
 
-	public synchronized static void setKickChecker (KickChecker kickchk) {
+	public static void setKickChecker (KickChecker kickchk) {
 		AFKWorker.kickchk = kickchk;
 	}
 
-	public synchronized static void setKick (boolean isKick) {
+	public static void setKick (boolean isKick) {
 		AFKWorker.isKick = isKick;
 	}
 
@@ -113,7 +113,7 @@ public class AFKWorker {
 		}
 	}
 
-	public synchronized static void init () {
+	public static void init () {
 		setAFKChecker(new AFKChecker());
 		setKickChecker(new KickChecker());
 		playersAFK.clear();
@@ -121,7 +121,7 @@ public class AFKWorker {
 	}
 	
 
-	public synchronized static void QuitPlayer (Player player) {
+	public static void QuitPlayer (Player player) {
 		if (playersTimeStamp.containsKey(player)) {
 			playersTimeStamp.remove(player);
 		}

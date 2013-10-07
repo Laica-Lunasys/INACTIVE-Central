@@ -23,6 +23,7 @@ import net.shiroumi.central.Command.Server.CmdTime;
 import net.shiroumi.central.Command.Server.CmdWeather;
 import net.shiroumi.central.Configuration.ConfigurationManager;
 import net.shiroumi.central.Listener.AFKListener;
+import net.shiroumi.central.Listener.PlayerListener;
 import net.shiroumi.central.Worker.AFKWorker;
 import net.shiroumi.central.Worker.NopickupWorker;
 
@@ -62,6 +63,7 @@ public class CentralCore extends JavaPlugin {
 		CommandRegister.Register(new CmdWeather(this));
 
 		new AFKListener(this);
+		new PlayerListener(this);
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getAFKChecker(), 20, 20);
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getKickChecker(), 20, 20);
 		AFKWorker.setAFKTime(cfg.getInteger("afktime") * 20);
