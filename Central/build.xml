@@ -8,10 +8,10 @@
 
 	<property name="name.project"   value   = "Central" />
 
-	<property name="path.classpath" location= "libs/**.jar"/>
+	<property name="path.classpath" location= "libs"/>
 	<property name="path.target"	location= "target"/>
 	<property name="path.sources"   location= "src"/>
-	<property name="path.classes"   location= "bin"/>
+	<property name="path.classes"   location= "${path.target}/classes"/>
 	<property name="path.resources" location= "resources"/>
 	<property name="test.src"       location= "test"/>
 	<property name="test.classes"   location= "${path.target}/test"/>
@@ -30,8 +30,8 @@
 	<!-- ================================= 
 		  target: All
 		 ================================= -->
-	<target name="All" depends="Clean, Build, FCopy, JAR" description="Compile -> Packing">
-		<length file="${file.destJar}" property="Jar.size"/>
+	<target name="All" depends="JAR" description="Compile -> Packing">
+		<length file="${path.target}/${file.destJar}" property="Jar.size"/>
 		<script language="javascript">
 			<![CDATA[
 				var length_bytes = project.getProperty("Jar.size");
@@ -47,28 +47,23 @@
 	<!-- ================================= 
 		  target: Build	
 		 ================================= -->
-	<target name="Build" description="Sources Compile">
-		<javac srcdir = "${path.sources}" destdir = "${path.classes}"
-			   classpath = "${path.classpath}" includeantruntime="false"/>
-	</target>
-
-	<!-- ================================= 
-		  target: FCopy				  
-		================================= -->
-	<target name="FCopy" description="Prepare Make-JAR, FileCopy">
-		<copy todir="${path.target}/classes" >
-			  <fileset dir="${path.classes}/" />
-		</copy>
-		<copy todir="${path.target}/classes" >
-		  <fileset dir="${path.resources}/" />
-		</copy>
+	<target name="Build" description="Sources Compile" depends="Clean">
+		<mkdir dir="${path.classes}"/>
+		<javac srcdir = "${path.sources}" destdir = "${path.classes}" includeantruntime="false">
+			<classpath>
+				<fileset dir="${path.classpath}" includes="*.jar"></fileset>
+			</classpath>
+		</javac>
 	</target>
 
 	<!-- ================================= 
 		  target: JAR
 		================================= -->
-	<target name="JAR" description="Make-JAR">
-		<jar destfile="${path.target}/${file.destJar}" basedir="${path.target}/classes"></jar>
+	<target name="JAR" description="Make-JAR" depends="Build">
+		<jar destfile="${path.target}/${file.destJar}">
+			<fileset dir="${path.classes}/" />
+			<fileset dir="${path.resources}/" />
+		</jar>
 	</target>
 
 	<!-- ================================= 
@@ -90,9 +85,12 @@
 		================================= -->
 	<target name="Test" description="Test Project." depends="Clean, Build">
 		<mkdir dir="${test.classes}"/>
-		<javac srcdir = "${test.src}" destdir = "${test.classes}"
-			   classpath = "${path.classpath};${path.classes}" includeantruntime="false"
-			   encoding="UTF-8" taskname="Test"/>
+		<javac srcdir = "${test.src}" destdir = "${test.classes}" includeantruntime="false"
+			   encoding="UTF-8" taskname="Test" classpath="${path.classes}">
+			<classpath>
+				<fileset dir="${path.classpath}" includes="*.jar"></fileset>
+			</classpath>
+		</javac>
 		<java classname = "${test.classname}" classpath = "${test.classes};${path.classes}"/>
 	</target>
 
@@ -105,7 +103,7 @@
 		<exec executable="cmd" dir="${run.basedir}" spawn="true" taskname="CraftBukkit">
 			<arg value="/c" />
 			<arg value="start" />
-			<arg line="java -jar ${run.bukkitjar} ${run.vmargs}"/>
+			<arg line="java -jar ${run.vmargs} ${run.bukkitjar}"/>
 		</exec>
 	</target>
 </project>

@@ -24,19 +24,17 @@ public class CmdAFK extends BaseCommand {
 		if (par1Sender instanceof Player) {
 			String message;
 			Player player = (Player) par1Sender;
-			if(par4Args.length < 1) {
+			if (par4Args.length < 1)
 				message = i18n._("genericreason_afk" + (AFKWorker.isPlayerAFK(player) ? "" : "_returned"));
-			} else {
+			else
 				message = par4Args[0];
-			}
-			message = Util.maskedStringReplace(message, new String[][]{
-					{"%player", player.getDisplayName()}
+			message = Util.maskedStringReplace(message, new String[][] {
+					{ "%player", player.getDisplayName() }
 			});
-			if (AFKWorker.isPlayerAFK(player)) {
+			if (AFKWorker.isPlayerAFK(player))
 				AFKWorker.setAFK(player, AFKReason.DECIDED, message);
-			} else {
+			else
 				AFKWorker.setOnline(player, AFKReason.DECIDED, message);
-			}
 		}
 		return true;
 	}

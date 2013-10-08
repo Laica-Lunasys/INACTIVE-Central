@@ -11,8 +11,8 @@ broadcastPrefix : '&d[BroadCast] %msg'
 #Login/Logout
 loginmessage: '%player has joined server'
 logoutmessage: '%player has quit server'
-
-#PlayerCommand
+    
+#PlayerCommandc
 changegm: '&6Change %player''s Gamemode to %gamemode.'
 spawnmessage: '&dSpawned %player.'
 
@@ -87,5 +87,8 @@ genericreason_afk: '&d%player is Afk.'
 genericreason_afk_returned: '&d%player is Returned Afk.'
 afk_kick: 'a Longer AFK %player.'
 
+#Adminmessage
 enabledNopickup : '&aNo pickup mode Enabled'
 disabledNopickup : '&cNo Pickup mode Disabled.'
+banmessage: '%player is banned!'
+banmessage_to_disconnectplayer: 'You have been banned!'
