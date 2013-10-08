@@ -21,8 +21,8 @@ onlinePlayers1: '&aNow Online Players: %number Player'
 onlinePlayers2: '%onlineuser'
 
 #ServerReload
-serverreload: '&aThis server is reloading...'
-serverreloadsuc: '&aThis server was reloaded.'
+serverreload: '&aServer Reloading...'
+serverreloadsuc: '&aServer Reload Success!.'
 
 #Teleport
 playertp: 'TeleportSuccess!! &9%fromPlayer&f -> &a%toPlayer'
