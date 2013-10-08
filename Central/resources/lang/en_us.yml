@@ -5,8 +5,8 @@
 #Prefix
 infoprefix: '&a[Info]&f '
 alertprefix: '&c[Warning]&f '
-afkPrefix  : '[&eAFK] &f'
-broadcastPrefix : '&d[BroadCast]'
+afkPrefix  : '&6[AFK] &f'
+broadcastPrefix : '&d[BroadCast] %msg'
 
 #Login/Logout
 loginmessage: '%player has joined server'
