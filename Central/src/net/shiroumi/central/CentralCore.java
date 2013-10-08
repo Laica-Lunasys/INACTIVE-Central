@@ -24,15 +24,19 @@ import net.shiroumi.central.Command.Server.CmdWeather;
 import net.shiroumi.central.Configuration.ConfigurationManager;
 import net.shiroumi.central.Listener.AFKListener;
 import net.shiroumi.central.Listener.PlayerListener;
+import net.shiroumi.central.Util.Util;
 import net.shiroumi.central.Worker.AFKWorker;
 import net.shiroumi.central.Worker.NopickupWorker;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.mcbans.firestar.mcbans.MCBans;
+
 public class CentralCore extends JavaPlugin {
 	private static CentralCore Instance;
 	public static Logger log;
 	private static ConfigurationManager cfg;
+	private static PluginFeatures<MCBans> mcbansFeatures;
 
 	public CentralCore(){
 		Instance = this;
@@ -64,13 +68,13 @@ public class CentralCore extends JavaPlugin {
 
 		new AFKListener(this);
 		new PlayerListener(this);
-		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getAFKChecker(), 20, 20);
-		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getKickChecker(), 20, 20);
 		AFKWorker.setAFKTime(cfg.getInteger("afktime") * 20);
 		AFKWorker.setKickTime(cfg.getInteger("afkkicktime") * 20);
 		AFKWorker.setKick(cfg.getBoolean("afkkick"));
 		NopickupWorker.getPlayerNopickupMap().clear();
-		;
+		checkFeatures();
+		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getAFKChecker(), 0L, 20L);
+		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getKickChecker(), 0L, 20L);
 		log.info("Enabled " + this.getDescription().getName() + "!");
 	}
 
@@ -90,5 +94,12 @@ public class CentralCore extends JavaPlugin {
 
 	public static String getLang(){
 		return cfg.getString("lang");
+	}
+
+	private void checkFeatures() {
+		mcbansFeatures = PluginFeatures.register("MCBans");
+		Util.broadcastMessage(i18n._((mcbansFeatures != null ? "en" : "dis") + "ablefeatures"), new String[][] {
+			{"%plugin", "MCBans"}
+		});
 	}
 }

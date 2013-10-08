@@ -1,8 +1,8 @@
 package net.shiroumi.central.Listener;
 
 import net.shiroumi.central.i18n;
-import net.shiroumi.central.KickBan.BanListManager;
-import net.shiroumi.central.KickBan.IPBanListManager;
+import net.shiroumi.central.Ban.BanListManager;
+import net.shiroumi.central.Ban.IPBanListManager;
 import net.shiroumi.central.Util.Util;
 import net.shiroumi.central.Worker.NopickupWorker;
 

@@ -31,6 +31,10 @@ hometp: 'HomeTeleport!! &9%homename'
 #MCBans Cooperation
 playerrep: 'Player %player has %rep Reptation.'
 
+#Plugin Features
+enablefeatures: 'Enable %plugin Features.'
+disablefeatures: 'Disable %plugin Features.'
+
 #StopCmd
 serverstopcount: '&cThis server is stop a after &e%countsec.&c'
 serverstopped: 'Server has Stopped!'

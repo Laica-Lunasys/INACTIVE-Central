@@ -1,4 +1,4 @@
-package net.shiroumi.central.KickBan;
+package net.shiroumi.central.Ban;
 
 import java.io.File;
 import java.io.IOException;

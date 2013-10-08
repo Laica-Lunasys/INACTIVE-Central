@@ -49,7 +49,8 @@
 		 ================================= -->
 	<target name="Build" description="Sources Compile" depends="Clean">
 		<mkdir dir="${path.classes}"/>
-		<javac srcdir = "${path.sources}" destdir = "${path.classes}" includeantruntime="false">
+		<javac srcdir = "${path.sources}" destdir = "${path.classes}" includeantruntime="false"
+			encoding="UTF-8" taskname="Build" >
 			<classpath>
 				<fileset dir="${path.classpath}" includes="*.jar"></fileset>
 			</classpath>
