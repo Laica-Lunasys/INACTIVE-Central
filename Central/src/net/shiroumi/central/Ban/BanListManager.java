@@ -1,4 +1,4 @@
-package net.shiroumi.central.KickBan;
+package net.shiroumi.central.Ban;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,25 +29,19 @@ public class BanListManager {
 		banList.add(par1Target);
 	}
 
-	public static void clearBanned(Player par1Target) {
-		clearBanned(par1Target.getName());
+	public static void unBan(Player par1Target) {
+		unBan(par1Target.getName());
 	}
 
-	public static void clearBanned(String par1Target) {
+	public static void unBan(String par1Target) {
 		if(isBanned(par1Target)) banList.remove(par1Target);
 	}
 
 	public static void save(String par1SaveFile) throws IOException {
-		StringBuilder sb = new StringBuilder();
-		for(String t : banList) {
-			sb.append(t);
-			sb.append("\n");
-		}
-		FileUtils.writeFileAsString(new File(par1SaveFile), sb.toString());
+		FileUtils.writeFileAsStringArray(new File(par1SaveFile), banList.toArray(new String[]{}));
 	}
 
 	public static void load(String par1SaveFile) throws IOException {
-		String[] data = FileUtils.readFileAsStringArray(new File(par1SaveFile));
-		banList = new CopyOnWriteArrayList<String>(data);
+		banList = new CopyOnWriteArrayList<String>(FileUtils.readFileAsStringArray(new File(par1SaveFile)));
 	}
 }

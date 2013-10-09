@@ -11,8 +11,8 @@ broadcastPrefix : '&d[BroadCast] %msg'
 #Login/Logout
 loginmessage: '%player has joined server'
 logoutmessage: '%player has quit server'
-
-#PlayerCommand
+    
+#PlayerCommandc
 changegm: '&6Change %player''s Gamemode to %gamemode.'
 spawnmessage: '&dSpawned %player.'
 
@@ -30,6 +30,10 @@ hometp: 'HomeTeleport!! &9%homename'
 
 #MCBans Cooperation
 playerrep: 'Player %player has %rep Reptation.'
+
+#Plugin Features
+enablefeatures: 'Enable %plugin Features.'
+disablefeatures: 'Disable %plugin Features.'
 
 #StopCmd
 serverstopcount: '&cThis server is stop a after &e%countsec.&c'
@@ -87,5 +91,8 @@ genericreason_afk: '&d%player is Afk.'
 genericreason_afk_returned: '&d%player is Returned Afk.'
 afk_kick: 'a Longer AFK %player.'
 
+#Adminmessage
 enabledNopickup : '&aNo pickup mode Enabled'
 disabledNopickup : '&cNo Pickup mode Disabled.'
+banmessage: '%player is banned!'
+banmessage_to_disconnectplayer: 'You have been banned!'

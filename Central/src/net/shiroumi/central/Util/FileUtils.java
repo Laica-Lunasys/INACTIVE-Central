@@ -6,8 +6,24 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 
 public class FileUtils {
+
+	private static Charset _charset = Charset.defaultCharset();
+
+	public static Charset getCharset() {
+		return _charset;
+	}
+
+	public static void setCharset(Charset par1Charset) {
+		_charset = par1Charset;
+	}
+
+	public static void setCharset(String par1CharsetName) {
+		setCharset(Charset.forName(par1CharsetName));
+	}
+
 	@SuppressWarnings("resource")
 	public static void copy(File src, File dest) throws IOException {
 		if (!src.exists())
@@ -47,7 +63,11 @@ public class FileUtils {
 	}
 
 	public static String[] readFileAsStringArray(File file) throws IOException {
-		return new String(readFileAsByteArray(file)).split("\n");
+		return readFileAsString(file).split("\n");
+	}
+
+	public static String readFileAsString(File file) throws IOException {
+		return new String(readFileAsByteArray(file), _charset);
 	}
 
 	public static byte[] readFileAsByteArray(File file) throws IOException {
@@ -64,8 +84,17 @@ public class FileUtils {
 		return bb.array();
 	}
 
+	public static void writeFileAsStringArray(File file, String[] par2DataArray) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		for(String t : par2DataArray) {
+			sb.append(t);
+			sb.append('\n');
+		}
+		writeFileAsString(file, sb.toString());
+	}
+
 	public static void writeFileAsString(File file, String par2Data) throws IOException {
-		writeFileAsByteArray(file, par2Data.getBytes());
+		writeFileAsByteArray(file, par2Data.getBytes(_charset));
 	}
 
 	public static void writeFileAsByteArray(File file, byte[] par2Data) throws IOException {

@@ -1,3 +1,4 @@
+
 package net.shiroumi.central.Command.Player;
 
 import net.shiroumi.central.CentralCore;

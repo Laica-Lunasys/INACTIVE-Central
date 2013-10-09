@@ -1,4 +1,4 @@
-package net.shiroumi.central.KickBan;
+package net.shiroumi.central.Ban;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,10 +31,10 @@ public class IPBanListManager {
 	}
 
 	public static void clearBanned(Player par1Target) {
-		clearBanned(par1Target.getName());
+		unBanned(Util.getIp(par1Target));
 	}
 
-	public static void clearBanned(String par1Target) {
+	public static void unBanned(String par1Target) {
 		if(isBanned(par1Target)) ipBanList.remove(par1Target);
 	}
 

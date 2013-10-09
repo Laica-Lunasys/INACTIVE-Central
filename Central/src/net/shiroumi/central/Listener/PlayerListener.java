@@ -1,12 +1,17 @@
 package net.shiroumi.central.Listener;
 
+import net.shiroumi.central.i18n;
+import net.shiroumi.central.Ban.BanListManager;
+import net.shiroumi.central.Ban.IPBanListManager;
+import net.shiroumi.central.Util.Util;
 import net.shiroumi.central.Worker.NopickupWorker;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerLoginEvent.Result;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,9 +28,11 @@ public class PlayerListener implements Listener {
 			event.setCancelled(true);
 		}
 	}
-	
-	@EventHandler
-	public void onPlayerLogin(PlayerCommandPreprocessEvent event) {
-		
+
+	@EventHandler(priority=EventPriority.HIGHEST)
+	public void onPlayerLogin(PlayerLoginEvent event) {
+		if(BanListManager.isBanned(event.getPlayer()) || IPBanListManager.isBanned(event.getPlayer())) {
+			event.disallow(Result.KICK_FULL, Util.maskedStringReplace(i18n._("banmessage_to_disconnectplayer"), null));
+		}
 	}
 }
