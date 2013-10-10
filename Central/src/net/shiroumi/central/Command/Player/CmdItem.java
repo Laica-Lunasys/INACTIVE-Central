@@ -10,11 +10,8 @@ import org.bukkit.command.CommandSender;
 
 public class CmdItem extends BaseCommand {
 
-	private CentralCore plugin;
-
 	public CmdItem(CentralCore par1Plugin) {
 		super(new CommandDescription("item", "player.item", false));
-		this.plugin = par1Plugin;
 	}
 
 	@Override

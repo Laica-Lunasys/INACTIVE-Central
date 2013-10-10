@@ -50,13 +50,13 @@ public class CmdGamemode extends BaseCommand {
 					return false;
 				}
 			} else {
-				target = Util.findPlayer(par4Args[0], CentralCore.getInstance(), par1Sender);
+				target = Util.findPlayer(par4Args[0], par1Sender);
 				if (target == null) return false;
 				mode = GameMode.values()[(target.getGameMode().ordinal() + 1 & 1)];
 			}
 		} else {
 			// /gm Mode Player
-			target = Util.findPlayer(par4Args[1], CentralCore.getInstance(), par1Sender);
+			target = Util.findPlayer(par4Args[1], par1Sender);
 			if (target == null) return false;
 			int m = par4Args[0].charAt(0);
 			if (m > 0x29 && m < 0x33 && (par1Sender instanceof Player)) {

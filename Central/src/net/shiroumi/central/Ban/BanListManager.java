@@ -2,6 +2,7 @@ package net.shiroumi.central.Ban;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -38,10 +39,14 @@ public class BanListManager {
 	}
 
 	public static void save(String par1SaveFile) throws IOException {
-		FileUtils.writeFileAsStringArray(new File(par1SaveFile), banList.toArray(new String[]{}));
+		FileUtils.writeFileAsStringArrayWithNewLine(new File(par1SaveFile), banList.toArray(new String[]{}));
 	}
 
 	public static void load(String par1SaveFile) throws IOException {
-		banList = new CopyOnWriteArrayList<String>(FileUtils.readFileAsStringArray(new File(par1SaveFile)));
+		banList.addAll(Arrays.asList(FileUtils.readFileAsStringArray(new File(par1SaveFile))));
+	}
+
+	public static void clear() {
+		banList.clear();
 	}
 }

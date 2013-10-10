@@ -9,11 +9,8 @@ import org.bukkit.command.CommandSender;
 
 public class CmdTime extends BaseCommand {
 
-	private CentralCore plugin;
-
 	public CmdTime(CentralCore par1Plugin) {
 		super(new CommandDescription("time", "server.time", true));
-		this.plugin = par1Plugin;
 	}
 
 	@Override

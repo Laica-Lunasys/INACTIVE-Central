@@ -1,6 +1,5 @@
 package net.shiroumi.central.Command;
 
-import net.shiroumi.central.CentralCore;
 import net.shiroumi.central.i18n;
 import net.shiroumi.central.Util.Util;
 
@@ -33,7 +32,7 @@ public abstract class BaseCommand implements CommandExecutor {
 			Util.Message(par1Sender, i18n._("cmdplayeronly"), null);
 			return false;
 		}
-		if(!Util.hasPerm(this.getPerm(), par1Sender, CentralCore.getInstance())){
+		if(!Util.hasPerm(this.getPerm(), par1Sender)){
 			return false;
 		}
 		return execute(par1Sender, par2Command, par3Args, par4Args);

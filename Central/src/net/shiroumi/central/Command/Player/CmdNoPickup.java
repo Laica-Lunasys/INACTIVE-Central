@@ -29,7 +29,7 @@ public class CmdNoPickup extends BaseCommand {
 				player = (Player) par1Sender;
 			}
 		} else {
-			player = Util.findPlayer(par4Args[0], CentralCore.getInstance(), par1Sender);
+			player = Util.findPlayer(par4Args[0], par1Sender);
 			if(player == null) return false;
 		}
 			NopickupWorker.setPlayerNopickup(player, !NopickupWorker.isPlayerNopickup(player));

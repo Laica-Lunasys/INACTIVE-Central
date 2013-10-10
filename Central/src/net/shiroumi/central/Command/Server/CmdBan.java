@@ -9,11 +9,8 @@ import org.bukkit.command.CommandSender;
 
 public class CmdBan extends BaseCommand {
 
-	private CentralCore plugin;
-
 	public CmdBan(CentralCore par1Plugin) {
 		super(new CommandDescription("ban", "server.ban", true));
-		this.plugin = par1Plugin;
 	}
 
 	@Override

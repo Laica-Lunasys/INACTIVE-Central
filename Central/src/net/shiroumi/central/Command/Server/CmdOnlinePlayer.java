@@ -9,11 +9,8 @@ import org.bukkit.command.CommandSender;
 
 public class CmdOnlinePlayer extends BaseCommand {
 
-	private CentralCore plugin;
-
 	public CmdOnlinePlayer(CentralCore par1Plugin) {
 		super(new CommandDescription("onlineplayers", "server.onlineplayer", true));
-		this.plugin = par1Plugin;
 	}
 
 	@Override

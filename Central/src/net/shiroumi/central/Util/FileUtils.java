@@ -26,14 +26,11 @@ public class FileUtils {
 
 	@SuppressWarnings("resource")
 	public static void copy(File src, File dest) throws IOException {
-		if (!src.exists())
-			return;
-		if (!dest.exists())
-			dest.mkdir();
+		if (!src.exists()) return;
+		if (!dest.exists()) dest.mkdir();
 		for (File f : src.listFiles()) {
 			File target = new File(dest, f.getName());
-			if (f.isDirectory())
-				copy(f, target);
+			if (f.isDirectory()) copy(f, target);
 			if (f.isFile()) {
 				FileChannel ic = new FileInputStream(f).getChannel();
 				FileChannel oc = new FileOutputStream(target).getChannel();
@@ -48,17 +45,14 @@ public class FileUtils {
 	}
 
 	public static void delete(File src) throws IOException {
-		if (!src.exists())
-			return;
+		if (!src.exists()) return;
 		if (!src.isDirectory()) {
 			src.delete();
 			return;
 		}
 		for (File f : src.listFiles()) {
-			if (f.isDirectory())
-				delete(f);
-			if (f.isFile())
-				f.delete();
+			if (f.isDirectory()) delete(f);
+			if (f.isFile()) f.delete();
 		}
 	}
 
@@ -78,17 +72,24 @@ public class FileUtils {
 			bb = ByteBuffer.allocate((int) fc.size());
 			fc.read(bb);
 		} finally {
-			if (fc != null)
-				fc.close();
+			if (fc != null) fc.close();
 		}
 		return bb.array();
 	}
 
-	public static void writeFileAsStringArray(File file, String[] par2DataArray) throws IOException {
+	public static void writeFileAsStringArrayWithNewLine(File file, String[] par2DataArray) throws IOException {
 		StringBuilder sb = new StringBuilder();
-		for(String t : par2DataArray) {
+		for (String t : par2DataArray) {
 			sb.append(t);
 			sb.append('\n');
+		}
+		writeFileAsString(file, sb.toString());
+	}
+
+	public static void writeFileAsStringArray(File file, String[] par2DataArray) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		for (String t : par2DataArray) {
+			sb.append(t);
 		}
 		writeFileAsString(file, sb.toString());
 	}
@@ -109,4 +110,3 @@ public class FileUtils {
 		}
 	}
 }
-

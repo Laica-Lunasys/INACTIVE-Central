@@ -9,11 +9,8 @@ import org.bukkit.command.CommandSender;
 
 public class CmdLockDown extends BaseCommand {
 
-	private CentralCore plugin;
-
 	public CmdLockDown(CentralCore par1Plugin) {
 		super(new CommandDescription("lockdown", "server.lockdown", true));
-		this.plugin = par1Plugin;
 	}
 
 	@Override

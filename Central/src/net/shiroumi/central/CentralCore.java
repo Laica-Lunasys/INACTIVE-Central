@@ -1,8 +1,11 @@
 package net.shiroumi.central;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Logger;
 
+import net.shiroumi.central.Ban.BanListManager;
+import net.shiroumi.central.Ban.IPBanListManager;
 import net.shiroumi.central.Command.CommandRegister;
 import net.shiroumi.central.Command.Player.CmdAFK;
 import net.shiroumi.central.Command.Player.CmdClear;
@@ -37,6 +40,8 @@ public class CentralCore extends JavaPlugin {
 	public static Logger log;
 	private static ConfigurationManager cfg;
 	private static PluginFeatures<MCBans> mcbansFeatures;
+	private static final String banlistFile = "ban.list";
+	private static final String ipBanlistFile = "ipban.list";
 
 	public CentralCore(){
 		Instance = this;
@@ -45,26 +50,26 @@ public class CentralCore extends JavaPlugin {
 	@Override
 	public void onEnable(){
 		log = this.getLogger();
-		cfg = new ConfigurationManager(this);
+		loadConfiguration();
 		// Player Commands
-		CommandRegister.Register(new CmdAFK(this));
-		CommandRegister.Register(new CmdClear(this));
-		CommandRegister.Register(new CmdGamemode(this));
-		CommandRegister.Register(new CmdGive(this));
-		CommandRegister.Register(new CmdHome(this));
-		CommandRegister.Register(new CmdInvisible(this));
-		CommandRegister.Register(new CmdItem(this));
-		CommandRegister.Register(new CmdNoPickup(this));
-		CommandRegister.Register(new CmdSpawn(this));
-		CommandRegister.Register(new CmdThor(this));
+		CommandRegister.Register(new CmdAFK         (this));
+		CommandRegister.Register(new CmdClear       (this));
+		CommandRegister.Register(new CmdGamemode    (this));
+		CommandRegister.Register(new CmdGive        (this));
+		CommandRegister.Register(new CmdHome        (this));
+		CommandRegister.Register(new CmdInvisible   (this));
+		CommandRegister.Register(new CmdItem        (this));
+		CommandRegister.Register(new CmdNoPickup    (this));
+		CommandRegister.Register(new CmdSpawn       (this));
+		CommandRegister.Register(new CmdThor        (this));
 		// Server Commands
-		CommandRegister.Register(new CmdBan(this));
-		CommandRegister.Register(new CmdBroadCast(this));
-		CommandRegister.Register(new CmdKick(this));
-		CommandRegister.Register(new CmdLockDown(this));
+		CommandRegister.Register(new CmdBan         (this));
+		CommandRegister.Register(new CmdBroadCast   (this));
+		CommandRegister.Register(new CmdKick        (this));
+		CommandRegister.Register(new CmdLockDown    (this));
 		CommandRegister.Register(new CmdOnlinePlayer(this));
-		CommandRegister.Register(new CmdTime(this));
-		CommandRegister.Register(new CmdWeather(this));
+		CommandRegister.Register(new CmdTime        (this));
+		CommandRegister.Register(new CmdWeather     (this));
 
 		new AFKListener(this);
 		new PlayerListener(this);
@@ -75,6 +80,7 @@ public class CentralCore extends JavaPlugin {
 		checkFeatures();
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getAFKChecker(), 0L, 20L);
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getKickChecker(), 0L, 20L);
+		
 		log.info("Enabled " + this.getDescription().getName() + "!");
 	}
 
@@ -101,5 +107,29 @@ public class CentralCore extends JavaPlugin {
 		Util.broadcastMessage(i18n._((mcbansFeatures != null ? "en" : "dis") + "ablefeatures"), new String[][] {
 			{"%plugin", "MCBans"}
 		});
+	}
+
+	private void loadConfiguration() {
+		cfg = new ConfigurationManager(this);
+		try {
+			BanListManager.load(banlistFile);
+		} catch (IOException e) {
+			log.info(String.format("Banlist Notfound Create %s.", banlistFile));
+			try {
+				new File(banlistFile).createNewFile();
+			} catch(IOException e1) {
+				
+			}
+		}
+		try {
+			IPBanListManager.load(ipBanlistFile);
+		} catch (IOException e) {
+			log.info(String.format("IPBanlist Notfound Create %s.", ipBanlistFile));
+			try {
+				new File(ipBanlistFile).createNewFile();
+			} catch(IOException e1) {
+				
+			}
+		}
 	}
 }
