@@ -2,6 +2,7 @@ package net.shiroumi.central.Ban;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -30,25 +31,23 @@ public class IPBanListManager {
 		ipBanList.add(par1Target);
 	}
 
-	public static void clearBanned(Player par1Target) {
-		unBanned(Util.getIp(par1Target));
+	public static void unBan(Player par1Target) {
+		unBan(Util.getIp(par1Target));
 	}
 
-	public static void unBanned(String par1Target) {
+	public static void unBan(String par1Target) {
 		if(isBanned(par1Target)) ipBanList.remove(par1Target);
 	}
 
 	public static void save(String par1SaveFile) throws IOException {
-		StringBuilder sb = new StringBuilder();
-		for(String t : ipBanList) {
-			sb.append(t);
-			sb.append("\n");
-		}
-		FileUtils.writeFileAsString(new File(par1SaveFile), sb.toString());
+		FileUtils.writeFileAsStringArrayWithNewLine(new File(par1SaveFile), ipBanList.toArray(new String[]{}));
 	}
 
 	public static void load(String par1SaveFile) throws IOException {
-		String[] data = FileUtils.readFileAsStringArray(new File(par1SaveFile));
-		ipBanList = new CopyOnWriteArrayList<String>(data);
+		ipBanList.addAll(Arrays.asList(FileUtils.readFileAsStringArray(new File(par1SaveFile))));
+	}
+
+	public static void clear() {
+		ipBanList.clear();
 	}
 }

@@ -9,11 +9,8 @@ import org.bukkit.command.CommandSender;
 
 public class CmdGive extends BaseCommand {
 
-	private CentralCore plugin;
-
 	public CmdGive(CentralCore par1Plugin) {
 		super(new CommandDescription("give", "player.give", true));
-		this.plugin = par1Plugin;
 	}
 
 	@Override

@@ -21,18 +21,18 @@ public class PlayerListener implements Listener {
 		par1Plugin.getServer().getPluginManager().registerEvents(this, par1Plugin);
 	}
 
-	@EventHandler(priority=EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerPickupItem(final PlayerPickupItemEvent event) {
 		Player p = event.getPlayer();
-		if(NopickupWorker.isPlayerNopickup(p)) {
+		if (NopickupWorker.isPlayerNopickup(p)) {
 			event.setCancelled(true);
 		}
 	}
 
-	@EventHandler(priority=EventPriority.HIGHEST)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerLogin(PlayerLoginEvent event) {
-		if(BanListManager.isBanned(event.getPlayer()) || IPBanListManager.isBanned(event.getPlayer())) {
-			event.disallow(Result.KICK_FULL, Util.maskedStringReplace(i18n._("banmessage_to_disconnectplayer"), null));
+		if (BanListManager.isBanned(event.getPlayer()) || IPBanListManager.isBanned(event.getPlayer())) {
+			event.disallow(Result.KICK_BANNED, Util.maskedStringReplace(i18n._("banmessage_to_disconnectplayer"), null));
 		}
 	}
 }

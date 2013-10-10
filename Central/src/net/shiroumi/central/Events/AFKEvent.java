@@ -8,10 +8,10 @@ public class AFKEvent extends Event {
 
 	private static final HandlerList handlers = new HandlerList();
 
-	private EventType type;
-	private AFKReason reason;
-	private String    Message;
-	private Player    player;
+	private EventType                type;
+	private AFKReason                reason;
+	private String                   Message;
+	private Player                   player;
 
 	public AFKEvent(Player who, AFKReason reason, EventType type, String Message) {
 		super();
@@ -25,7 +25,7 @@ public class AFKEvent extends Event {
 	public HandlerList getHandlers() {
 		return handlers;
 	}
-	
+
 	public static HandlerList getHandlerList() {
 		return handlers;
 	}
@@ -65,7 +65,6 @@ public class AFKEvent extends Event {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-
 
 	public static enum AFKReason {
 		AUTO,

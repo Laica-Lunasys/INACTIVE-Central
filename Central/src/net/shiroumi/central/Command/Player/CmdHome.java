@@ -9,11 +9,8 @@ import org.bukkit.command.CommandSender;
 
 public class CmdHome extends BaseCommand {
 
-	private CentralCore plugin;
-
 	public CmdHome(CentralCore par1Plugin) {
 		super(new CommandDescription("home", "player.home", false));
-		this.plugin = par1Plugin;
 	}
 
 	@Override

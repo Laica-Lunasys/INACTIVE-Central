@@ -14,10 +14,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-
 public class AFKListener implements Listener {
 
-	public AFKListener (JavaPlugin par1Plugin) {
+	public AFKListener(JavaPlugin par1Plugin) {
 		par1Plugin.getServer().getPluginManager().registerEvents(this, par1Plugin);
 	}
 
@@ -34,18 +33,19 @@ public class AFKListener implements Listener {
 	}
 
 	@EventHandler
-	public void ListenerAFKMove (PlayerMoveEvent event) {
+	public void ListenerAFKMove(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
 		if (AFKWorker.isPlayerAFK(player)) {
-			AFKWorker.setOnline(player, AFKReason.AUTO, Util.maskedStringReplace( i18n._("genericreason_afk_returned"), new String[][]{
-				{"%player", event.getPlayer().getDisplayName()}
-			}));
+			AFKWorker.setOnline(player, AFKReason.AUTO,
+			        Util.maskedStringReplace(i18n._("genericreason_afk_returned"), new String[][] {
+			        { "%player", event.getPlayer().getDisplayName() }
+			        }));
 		}
 		AFKWorker.updateTimeStamp(player);
 	}
 
 	@EventHandler
-	public void ListenerQuit (PlayerQuitEvent event) {
+	public void ListenerQuit(PlayerQuitEvent event) {
 		AFKWorker.QuitPlayer(event.getPlayer());
 	}
 }

@@ -9,11 +9,8 @@ import org.bukkit.command.CommandSender;
 
 public class CmdThor extends BaseCommand {
 
-	private CentralCore plugin;
-
 	public CmdThor(CentralCore par1Plugin) {
 		super(new CommandDescription("thor", "player.thor", false));
-		this.plugin = par1Plugin;
 	}
 
 	@Override

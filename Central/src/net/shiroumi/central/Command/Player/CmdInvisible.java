@@ -9,11 +9,8 @@ import org.bukkit.command.CommandSender;
 
 public class CmdInvisible extends BaseCommand {
 
-	private CentralCore plugin;
-
 	public CmdInvisible(CentralCore par1Plugin) {
 		super(new CommandDescription("inv", "player.invisible", false));
-		this.plugin = par1Plugin;
 	}
 
 	@Override

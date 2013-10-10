@@ -29,8 +29,7 @@ public class ZipFileBuilder implements Closeable, Flushable {
 	}
 
 	public void createDirectory(String par1InZipPath) throws IOException {
-		if (!par1InZipPath.endsWith("/"))
-			par1InZipPath = par1InZipPath.concat("/");
+		if (!par1InZipPath.endsWith("/")) par1InZipPath = par1InZipPath.concat("/");
 		ZipEntry entry = new ZipEntry(par1InZipPath);
 		entry.setMethod(ZipEntry.STORED);
 		entry.setCrc(0);
@@ -40,12 +39,12 @@ public class ZipFileBuilder implements Closeable, Flushable {
 	}
 
 	public void createFile(String par1InZipPath, String par2Path)
-			throws IOException {
+	        throws IOException {
 		createFile(par1InZipPath, new File(par2Path));
 	}
 
 	public void createFile(String par1InZipPath, File par2File)
-			throws IOException {
+	        throws IOException {
 		FileChannel fc = null;
 		ByteBuffer bb;
 		try {
@@ -56,13 +55,12 @@ public class ZipFileBuilder implements Closeable, Flushable {
 			bb.flip();
 			createFile(par1InZipPath, bb.array());
 		} finally {
-			if (fc != null)
-				fc.close();
+			if (fc != null) fc.close();
 		}
 	}
 
 	public void createFile(String par1InZipPath, byte[] par2Data)
-			throws IOException {
+	        throws IOException {
 		ZipEntry entry = new ZipEntry(par1InZipPath);
 		zos.putNextEntry(entry);
 		zos.write(par2Data);
@@ -70,16 +68,12 @@ public class ZipFileBuilder implements Closeable, Flushable {
 	}
 
 	public void copyFileToZip(File src, String dest) throws IOException {
-		if (!src.exists())
-			return;
+		if (!src.exists()) return;
 		createDirectory(dest);
 		for (File f : src.listFiles()) {
 			String target = dest + f.getName();
-			if (f.isDirectory())
-				copyFileToZip(f, target + "/");
-			if (f.isFile()) {
-				createFile(target, f);
-			}
+			if (f.isDirectory()) copyFileToZip(f, target + "/");
+			if (f.isFile()) createFile(target, f);
 		}
 	}
 
@@ -95,8 +89,8 @@ public class ZipFileBuilder implements Closeable, Flushable {
 		zos.flush();
 	}
 
-	public static ZipFileBuilder loadAreadyExistsZipFile(File par1File)
-			throws ZipException, IOException {
+	public static ZipFileBuilder loadAlreadyExistsZipFile(File par1File)
+	        throws ZipException, IOException {
 		ZipFile izf = null;
 		ZipFileBuilder zfm = null;
 		File tmpFile = new File(par1File.getAbsolutePath() + ".tmp");
@@ -116,7 +110,7 @@ public class ZipFileBuilder implements Closeable, Flushable {
 					zfm.createFile(entry.getName(), data);
 				}
 			}
-		} catch(FileNotFoundException e) {
+		} catch (FileNotFoundException e) {
 			return new ZipFileBuilder(par1File);
 		} finally {
 			if (izf != null) izf.close();

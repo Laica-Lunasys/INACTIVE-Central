@@ -9,11 +9,8 @@ import org.bukkit.command.CommandSender;
 
 public class CmdWeather extends BaseCommand {
 
-	private CentralCore plugin;
-
 	public CmdWeather(CentralCore par1Plugin) {
 		super(new CommandDescription("weather", "server.weather", true));
-		this.plugin = par1Plugin;
 	}
 
 	@Override
