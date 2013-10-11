@@ -40,9 +40,9 @@ serverstopcount: '&cThis server is stop a after &e%countsec.&c'
 serverstopped: 'Server has Stopped!'
 
 #LockCmd
-serverlockdown: '&cThe server is locked in %locktime seconds later.'
-serverlockmsg: '&cThis server Locked.'
-serverunlock: '&aServer is currently locked.'
+serverlockdown: '&cThe server is locked in %locktime seconds later.(%reason)'
+serverlockmsg: '&cThis server Locked (%reason)'
+serverunlock: '&aServer is unlocked.'
 
 #observation
 toolenable: '&aObserv Tool Enable'
