@@ -1,8 +1,7 @@
 package net.shiroumi.central.Listener;
 
+import net.shiroumi.central.CTServer;
 import net.shiroumi.central.i18n;
-import net.shiroumi.central.Ban.BanListManager;
-import net.shiroumi.central.Ban.IPBanListManager;
 import net.shiroumi.central.Util.Util;
 import net.shiroumi.central.Worker.NopickupWorker;
 
@@ -31,8 +30,11 @@ public class PlayerListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerLogin(PlayerLoginEvent event) {
-		if (BanListManager.isBanned(event.getPlayer()) || IPBanListManager.isBanned(event.getPlayer())) {
+		if (CTServer.getBanManager().isBanned(event.getPlayer()) || CTServer.getIPBanManager().isBanned(event.getPlayer())) {
 			event.disallow(Result.KICK_BANNED, Util.maskedStringReplace(i18n._("banmessage_to_disconnectplayer"), null));
+		}
+		if(CTServer.isLocked()) {
+			event.disallow(Result.KICK_BANNED, Util.maskedStringReplace(i18n._("serverlockmsg"), null));
 		}
 	}
 }
