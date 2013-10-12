@@ -30,7 +30,9 @@ public class SQLiteManager extends DatabaseManager {
 			URL[] jarURL = {f.toURI().toURL()};
 			URLClassLoader classloader = URLClassLoader.newInstance(jarURL);
 			classloader.loadClass(SQLType.SQLite.getDriver());
-		} catch (MalformedURLException | ClassNotFoundException e) {
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
