@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class DatabaseManager {
 	protected static Connection con = null;
-	protected static Map<ResultSet, Statement> openingStatements = new ConcurrentHashMap<ResultSet, Statement>();
+	private static Map<ResultSet, Statement> openingStatements = new ConcurrentHashMap<ResultSet, Statement>();
 
 	protected static void connect(SQLType par1Type, String par2Host, String par3DB
 			, String par4User, String par5Pass) throws SQLException {
@@ -19,11 +19,7 @@ public abstract class DatabaseManager {
         } catch (ClassNotFoundException e) {
 	        throw new IllegalStateException("Error: Can\'t Load Databases Driver");
         }
-		if(par1Type != SQLType.SQLite) {
-			con = par1Type.getConnection(par2Host, par3DB, par4User, par5Pass);
-		} else { 
-			con = par1Type.getConnection(par2Host);
-		} 
+		con = par1Type.getConnection(par2Host, par3DB, par4User, par5Pass);
 	}
 
 	public static ResultSet executeQuery(String par1SQL) throws SQLException {
@@ -60,7 +56,7 @@ public abstract class DatabaseManager {
 
 	public static enum SQLType {
 		MySQL("com.mysql.jdbc.Driver", "jdbc:mysql://%host/%db"), 
-		PostgreSQL("org.postgresql.Driver", "jdbc:postgresql://%host/%db"),
+		//PostgreSQL("org.postgresql.Driver", "jdbc:postgresql://%host/%db"),
 		SQLite("org.sqlite.JDBC", "jdbc:sqlite:%file")
 		;
 		private final String driver, uri;

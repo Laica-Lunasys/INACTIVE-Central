@@ -13,12 +13,12 @@ public class SQLiteManager extends DatabaseManager {
 
 	/**
 	 * Connect SQLite Database
-	 * @param par2File Database File
+	 * @param par1File Database File
 	 * @throws SQLException
 	 */
-	public static void connect(String par2File) throws SQLException {
+	public static void connect(String par1File) throws SQLException {
 		loadFile();
-		connect(SQLType.SQLite, par2File, null, null, null);
+		con = SQLType.SQLite.getConnection(par1File);
 	}
 
 	private static void loadFile() {

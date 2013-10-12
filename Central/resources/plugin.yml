@@ -22,3 +22,5 @@ commands:
   onlineplayers: 
   time: 
   weather: 
+  observation: 
+    aliases: [obs, ob]
