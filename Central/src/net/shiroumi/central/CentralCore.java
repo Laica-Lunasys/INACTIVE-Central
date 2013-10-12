@@ -21,22 +21,26 @@ import net.shiroumi.central.Command.Server.CmdLockDown;
 import net.shiroumi.central.Command.Server.CmdOnlinePlayer;
 import net.shiroumi.central.Command.Server.CmdTime;
 import net.shiroumi.central.Command.Server.CmdWeather;
-import net.shiroumi.central.Configuration.ConfigurationManager;
 import net.shiroumi.central.Listener.AFKListener;
+import net.shiroumi.central.Listener.LockdownListener;
 import net.shiroumi.central.Listener.PlayerListener;
 import net.shiroumi.central.Util.Util;
 import net.shiroumi.central.Worker.AFKWorker;
 import net.shiroumi.central.Worker.NopickupWorker;
 
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import ru.tehkode.permissions.PermissionUser;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 import com.mcbans.firestar.mcbans.MCBans;
 
 public class CentralCore extends JavaPlugin {
 	private static CentralCore Instance;
 	public static Logger log;
-	private static ConfigurationManager cfg;
 	private static PluginFeatures<MCBans> mcbansFeatures;
+	private static PluginFeatures<PermissionsEx> pexFeatures;
 
 	public CentralCore(){
 		Instance = this;
@@ -45,7 +49,7 @@ public class CentralCore extends JavaPlugin {
 	@Override
 	public void onEnable(){
 		log = this.getLogger();
-		loadConfiguration();
+		CTServer.initialize(this);
 		// Player Commands
 		CommandRegister.Register(new CmdAFK         (this));
 		CommandRegister.Register(new CmdClear       (this));
@@ -67,10 +71,11 @@ public class CentralCore extends JavaPlugin {
 		CommandRegister.Register(new CmdWeather     (this));
 
 		new AFKListener(this);
+		new LockdownListener(this);
 		new PlayerListener(this);
-		AFKWorker.setAFKTime(cfg.getInteger("afktime") * 20);
-		AFKWorker.setKickTime(cfg.getInteger("afkkicktime") * 20);
-		AFKWorker.setKick(cfg.getBoolean("afkkick"));
+		AFKWorker.setAFKTime(CTServer.getConfiguration().getInteger("afktime") * 20);
+		AFKWorker.setKickTime(CTServer.getConfiguration().getInteger("afkkicktime") * 20);
+		AFKWorker.setKick(CTServer.getConfiguration().getBoolean("afkkick"));
 		NopickupWorker.getPlayerNopickupMap().clear();
 		checkFeatures();
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getAFKChecker(), 0L, 20L);
@@ -94,7 +99,7 @@ public class CentralCore extends JavaPlugin {
 	}
 
 	public static String getLang(){
-		return cfg.getString("lang");
+		return CTServer.getConfiguration().getString("lang");
 	}
 
 	private void checkFeatures() {
@@ -102,10 +107,22 @@ public class CentralCore extends JavaPlugin {
 		Util.broadcastMessage(i18n._((mcbansFeatures != null ? "en" : "dis") + "ablefeatures"), new String[][] {
 			{"%plugin", "MCBans"}
 		});
+		pexFeatures = PluginFeatures.register("PermissionsEx");
+		Util.broadcastMessage(i18n._((pexFeatures != null ? "en" : "dis") + "ablefeatures"), new String[][] {
+			{"%plugin", "PermissionsEx"}
+		});
 	}
 
-	private void loadConfiguration() {
-		cfg = new ConfigurationManager(this);
-		
+	public static String getPrefix() {
+		return getPrefix(null);
+	}
+
+	public static String getPrefix(Player par1Player) {
+		if (!CTServer.getConfiguration().getBoolean("isuseprefix")) return "";
+		if(par1Player != null && pexFeatures.isEnable()) {
+			PermissionUser user = PermissionsEx.getUser(par1Player);
+			return user.getPrefix(par1Player.getWorld().getName());
+		}
+		return CTServer.getConfiguration().getString("prefix");
 	}
 }

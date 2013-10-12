@@ -4,8 +4,15 @@
 
 lang: en_us
 
-#afktime: AFKになるまでの時間
-#afkkick: AFKKicktimeで指定した時間に
+#afktime: AFKになるまでの時間 [sec]
+#afkkick: AFKKicktimeで指定した時間に [sec]
 afktime: 120
 afkkicktime: 300
 afkkick: false
+
+isuseprefix: true
+isusesuffix: false
+
+prefix: '&6[Central]'
+
+locktime: 5 #[sec]

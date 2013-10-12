@@ -89,6 +89,7 @@ cmdillegalargument: '&cIllegal Arguments.'
 #Generic Messages
 genericreason_afk: '&d%player is Afk.'
 genericreason_afk_returned: '&d%player is Returned Afk.'
+genericreason_lockdown: 'Server maintenance'
 afk_kick: 'a Longer AFK %player.'
 
 #Adminmessage

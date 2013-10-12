@@ -9,6 +9,7 @@ import net.shiroumi.central.Worker.AFKWorker;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -20,7 +21,7 @@ public class AFKListener implements Listener {
 		par1Plugin.getServer().getPluginManager().registerEvents(this, par1Plugin);
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled=true, priority = EventPriority.HIGHEST)
 	public void ListenerAFK(AFKEvent event) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(i18n._("afkPrefix"));
@@ -32,7 +33,7 @@ public class AFKListener implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled=true, priority = EventPriority.HIGHEST)
 	public void ListenerAFKMove(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
 		if (AFKWorker.isPlayerAFK(player)) {
@@ -44,7 +45,7 @@ public class AFKListener implements Listener {
 		AFKWorker.updateTimeStamp(player);
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled=true, priority = EventPriority.HIGHEST)
 	public void ListenerQuit(PlayerQuitEvent event) {
 		AFKWorker.QuitPlayer(event.getPlayer());
 	}

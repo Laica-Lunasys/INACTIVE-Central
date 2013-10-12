@@ -2,6 +2,7 @@ package net.shiroumi.central.Ban;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -17,6 +18,10 @@ public class IPBanListManager {
 
 	public boolean isBanned(Player par1Target) {
 		return isBanned(Util.getIp(par1Target));
+	}
+
+	public boolean isBanned(InetAddress par1Target) {
+		return isBanned(par1Target.getHostAddress());
 	}
 
 	public boolean isBanned(String par1Target) {

@@ -25,6 +25,7 @@ import net.shiroumi.central.CentralCore;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 
 /** @author squarep */
 public class Util {
@@ -71,6 +72,7 @@ public class Util {
 	}
 
 	public static String getIp(Player p) {
+		System.out.println(p.getAddress().toString());
 		return p.getAddress().toString().split("/")[1].split(":")[0];
 	}
 
@@ -163,5 +165,9 @@ public class Util {
 			}
 		}
 		return MD5Sum(bb.array());
+	}
+
+	public static void callEvent(Event par1Event) {
+		Bukkit.getPluginManager().callEvent(par1Event);
 	}
 }

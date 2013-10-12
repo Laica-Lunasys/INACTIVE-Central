@@ -30,11 +30,13 @@ public class PlayerListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerLogin(PlayerLoginEvent event) {
-		if (CTServer.getBanManager().isBanned(event.getPlayer()) || CTServer.getIPBanManager().isBanned(event.getPlayer())) {
+		if (CTServer.getBanManager().isBanned(event.getPlayer()) || CTServer.getIPBanManager().isBanned(event.getAddress())) {
 			event.disallow(Result.KICK_BANNED, Util.maskedStringReplace(i18n._("banmessage_to_disconnectplayer"), null));
 		}
-		if(CTServer.isLocked()) {
-			event.disallow(Result.KICK_BANNED, Util.maskedStringReplace(i18n._("serverlockmsg"), null));
+		if(CTServer.isLocked() && !Util.hasPerm("Central.Lockdown.except", event.getPlayer())) {
+			event.disallow(Result.KICK_OTHER, Util.maskedStringReplace(i18n._("serverlockmsg"), new String[][]{
+				{"%reason", CTServer.getLockReason()}
+			}));
 		}
 	}
 }

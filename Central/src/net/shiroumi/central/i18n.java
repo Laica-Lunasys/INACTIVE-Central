@@ -26,6 +26,7 @@ public final class i18n {
 			msg = new ConfigurationManager(CentralCore.getInstance(),"lang/" + CentralCore.getLang() + ".yml");
 		}
 	}
+
 	static {
 		initialize(false);
 	}
