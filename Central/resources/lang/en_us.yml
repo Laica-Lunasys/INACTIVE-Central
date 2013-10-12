@@ -8,92 +8,72 @@ alertprefix: '&c[Warning]&f '
 afkPrefix  : '&6[AFK] &f'
 broadcastPrefix : '&d[BroadCast] %msg'
 
-#Login/Logout
+#System
 loginmessage: '%player has joined server'
 logoutmessage: '%player has quit server'
-    
-#PlayerCommandc
-changegm: '&6Change %player''s Gamemode to %gamemode.'
-spawnmessage: '&dSpawned %player.'
-
-#OnlinePlayer
-onlinePlayers1: '&aNow Online Players: %number Player'
-onlinePlayers2: '%onlineuser'
-
-#ServerReload
+genericreason_afk: '&d%player is Afk.'
+genericreason_afk: '&d%player is Afk.'
+genericreason_afk_returned: '&d%player is Returned Afk.'
+genericreason_lockdown: 'Server maintenance'
 serverreload: '&aServer Reloading...'
 serverreloadsuc: '&aServer Reload Success!.'
-
-#Teleport
-playertp: 'TeleportSuccess!! &9%fromPlayer&f -> &a%toPlayer'
-hometp: 'HomeTeleport!! &9%homename'
-
-#MCBans Cooperation
 playerrep: 'Player %player has %rep Reptation.'
 
-#Plugin Features
-enablefeatures: 'Enable %plugin Features.'
-disablefeatures: 'Disable %plugin Features.'
-
-#StopCmd
+#Player Command
+onlinePlayers1: '&aNow Online Players: %number Player'
+onlinePlayers2: '%onlineuser'
 serverstopcount: '&cThis server is stop a after &e%countsec.&c'
 serverstopped: 'Server has Stopped!'
-
-#LockCmd
+changegm: '&6Change %player''s Gamemode to %gamemode.'
+spawnmessage: '&dSpawned %player.'
+enabledNopickup : '&aNo pickup mode Enabled'
+disabledNopickup : '&cNo Pickup mode Disabled.'
+clearinventory: '&cRemoved items from the %player'
+playertp: 'TeleportSuccess!! &9%fromPlayer&f -> &a%toPlayer'
+hometp: 'HomeTeleport!! &9%homename'
+playertp: 'TeleportSuccess!! &9%fromPlayer&f -> &a%toPlayer'
+hometp: 'HomeTeleport!! &9%homename'
+pluginreload: '&aReload Plugin(%plugin)'
+pluginenabled: '&aStart Plugin (%plugin)'
+plugindisabled: '&cStop Plugin (%plugin)'
+worldcreatesuccess: '&aSuccessful Generation of World (Name: %world)'
+worldteleport: '&aTeleported World (Name: %world)'
 serverlockdown: '&cThe server is locked in %locktime seconds later.(%reason)'
 serverlockmsg: '&cThis server Locked (%reason)'
 serverunlock: '&aServer is unlocked.'
-
-#observation
+enablefeatures: 'Enable %plugin Features.'
+disablefeatures: 'Disable %plugin Features.'
 toolenable: '&aObserv Tool Enable'
 tooldisable: '&cObserv Tool Disable'
 search: '&7Wait...'
 startrollb: 'Start %player''s rollback!'
 donerollb: 'RollbackComplete!'
 playersearch: '%player''s Result'
-searchresult: '|%date|%id|%player|%log|%item|%status|'
+searchresult: '|%date|%id|%player|'
+searchresult2: '|%log|%item|%status|'
 status1: 'placed'
 status2: 'break'
 status3: 'add'
 status4: 'remove'
 status5: 'kill'
 status6: 'dead'
+status7: 'chest-access'
+status8: 'take'
+#BAN / Kick
+banmessage: '%player is banned! (%reason)'
+unbanmessage: '%player is unbanned!'
+banmessage_to_disconnectplayer: 'You have been banned! (%reason)'
+kickmessage:'%player is kicked!　(%reason)'
 
-#Plugins Control
-pluginreload: '&aReload Plugin(%plugin)'
-pluginenabled: '&aStart Plugin (%plugin)'
-plugindisabled: '&cStop Plugin (%plugin)'
-pluginnotfound: '&c%plugin has NotFound.'
-
-#ClearInventory
-clearinventory: '&cRemoved items from the %player'
-
-#Multiworld
-worldnotfound: '&cWorld not found (Name: %world)'
-worldcreatefail: '&cFailed Create world (Name: %world)'
-worldcreatesuccess: '&aSuccessful Generation of World (Name: %world)'
-worldteleport: '&aTeleported World (Name: %world)'
-
-#PrivateMessage
-myselfsend: '&cCan not send a message to myself'
-noreply: '&cYou no have PrivateMessage!'
-
-#Central PluginErrorMsg
+#ErrorMsg
 fatalerror: '&cError! Details the visit Console.'
 errorperm: '&cYou Don''t  have Permission &f(%perm)'
 playernotfound: '&cCan''t find Player : %player'
 cmdplayeronly: '&cCan''t execute this command the Console.'
 cmdconsoleonly: '&cThis command a only execute the Console.'
 cmdillegalargument: '&cIllegal Arguments.'
-
-#Generic Messages
-genericreason_afk: '&d%player is Afk.'
-genericreason_afk_returned: '&d%player is Returned Afk.'
-genericreason_lockdown: 'Server maintenance'
-afk_kick: 'a Longer AFK %player.'
-
-#Adminmessage
-enabledNopickup : '&aNo pickup mode Enabled'
-disabledNopickup : '&cNo Pickup mode Disabled.'
-banmessage: '%player is banned!'
-banmessage_to_disconnectplayer: 'You have been banned!'
+worldnotfound: '&cWorld not found (Name: %world)'
+pluginnotfound: '&c%plugin has NotFound.'
+noreply: '&cYou no have PrivateMessage!'
+worldcreatefail: '&cFailed Create world (Name: %world)'
+myselfsend: '&cCan not send a message to myself'

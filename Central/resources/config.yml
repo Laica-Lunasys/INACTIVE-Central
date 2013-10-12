@@ -4,6 +4,8 @@
 
 lang: en_us
 
+prefix: '&6[Central]'
+
 #afktime: AFKになるまでの時間 [sec]
 #afkkick: AFKKicktimeで指定した時間に [sec]
 afktime: 120
@@ -13,6 +15,5 @@ afkkick: false
 isuseprefix: true
 isusesuffix: false
 
-prefix: '&6[Central]'
 
 locktime: 5 #[sec]
