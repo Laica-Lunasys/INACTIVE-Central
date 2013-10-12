@@ -1,8 +1,8 @@
 package net.shiroumi.central.Listener;
 
 import net.shiroumi.central.CTServer;
-import net.shiroumi.central.i18n;
 import net.shiroumi.central.Util.Util;
+import net.shiroumi.central.Util.i18n;
 import net.shiroumi.central.Worker.NopickupWorker;
 
 import org.bukkit.entity.Player;

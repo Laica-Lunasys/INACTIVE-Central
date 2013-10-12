@@ -2,12 +2,12 @@ package net.shiroumi.central.Command.Server;
 
 import net.shiroumi.central.CTServer;
 import net.shiroumi.central.CentralCore;
-import net.shiroumi.central.i18n;
 import net.shiroumi.central.Command.BaseCommand;
 import net.shiroumi.central.Command.CommandDescription;
 import net.shiroumi.central.Events.LockdownEvent;
 import net.shiroumi.central.Events.LockdownEvent.EventType;
 import net.shiroumi.central.Util.Util;
+import net.shiroumi.central.Util.i18n;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

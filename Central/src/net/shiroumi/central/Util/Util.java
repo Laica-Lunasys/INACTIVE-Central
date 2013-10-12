@@ -1,6 +1,6 @@
 package net.shiroumi.central.Util;
 
-import static net.shiroumi.central.i18n.*;
+import static net.shiroumi.central.Util.i18n.*;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -72,8 +72,7 @@ public class Util {
 	}
 
 	public static String getIp(Player p) {
-		System.out.println(p.getAddress().toString());
-		return p.getAddress().toString().split("/")[1].split(":")[0];
+		return p.getAddress().getAddress().getHostAddress();
 	}
 
 	public static void copyFileFromJar(File targetFile, String sourceFilePath,
@@ -106,15 +105,11 @@ public class Util {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				if (jar != null) jar.close();
-				if (is != null) is.close();
-				if (br != null) br.close();
-				if (os != null) os.close();
-				if (pw != null) pw.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			try { if (jar!= null)jar.close(); } catch (IOException e) { }
+			try { if (is != null) is.close(); } catch (IOException e) { }
+			try { if (br != null) br.close(); } catch (IOException e) { }
+			try { if (os != null) os.close(); } catch (IOException e) { }
+			      if (pw != null) pw.close();
 		}
 	}
 

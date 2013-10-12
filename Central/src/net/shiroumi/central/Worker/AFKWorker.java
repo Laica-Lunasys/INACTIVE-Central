@@ -3,11 +3,11 @@ package net.shiroumi.central.Worker;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import net.shiroumi.central.i18n;
 import net.shiroumi.central.Events.AFKEvent;
 import net.shiroumi.central.Events.AFKEvent.AFKReason;
 import net.shiroumi.central.Events.AFKEvent.EventType;
 import net.shiroumi.central.Util.Util;
+import net.shiroumi.central.Util.i18n;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

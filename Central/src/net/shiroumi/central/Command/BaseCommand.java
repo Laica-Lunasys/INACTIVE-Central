@@ -1,7 +1,7 @@
 package net.shiroumi.central.Command;
 
-import net.shiroumi.central.i18n;
 import net.shiroumi.central.Util.Util;
+import net.shiroumi.central.Util.i18n;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

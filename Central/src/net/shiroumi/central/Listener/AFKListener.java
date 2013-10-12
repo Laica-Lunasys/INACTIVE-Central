@@ -1,10 +1,10 @@
 package net.shiroumi.central.Listener;
 
-import net.shiroumi.central.i18n;
 import net.shiroumi.central.Events.AFKEvent;
 import net.shiroumi.central.Events.AFKEvent.AFKReason;
 import net.shiroumi.central.Events.AFKEvent.EventType;
 import net.shiroumi.central.Util.Util;
+import net.shiroumi.central.Util.i18n;
 import net.shiroumi.central.Worker.AFKWorker;
 
 import org.bukkit.entity.Player;

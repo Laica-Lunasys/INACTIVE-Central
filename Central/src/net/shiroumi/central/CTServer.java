@@ -87,6 +87,7 @@ public class CTServer {
 	}
 
 	public static void kick(Player par1Player, String par2Reason) {
+		
 		if(Util.hasPerm("Central.Lockdown.except", par1Player) ||
 				Util.hasPerm("Central.Kick.except", par1Player)) return;
 		par1Player.kickPlayer(par2Reason);

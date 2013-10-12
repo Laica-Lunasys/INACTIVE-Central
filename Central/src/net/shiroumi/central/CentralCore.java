@@ -1,6 +1,7 @@
 package net.shiroumi.central;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.logging.Logger;
 
 import net.shiroumi.central.Command.CommandRegister;
@@ -21,10 +22,16 @@ import net.shiroumi.central.Command.Server.CmdLockDown;
 import net.shiroumi.central.Command.Server.CmdOnlinePlayer;
 import net.shiroumi.central.Command.Server.CmdTime;
 import net.shiroumi.central.Command.Server.CmdWeather;
+import net.shiroumi.central.Databases.DatabaseManager;
+import net.shiroumi.central.Databases.DatabaseManager.SQLType;
+import net.shiroumi.central.Databases.SQL;
+import net.shiroumi.central.Databases.SQLiteManager;
 import net.shiroumi.central.Listener.AFKListener;
 import net.shiroumi.central.Listener.LockdownListener;
 import net.shiroumi.central.Listener.PlayerListener;
+import net.shiroumi.central.Util.PluginFeatures;
 import net.shiroumi.central.Util.Util;
+import net.shiroumi.central.Util.i18n;
 import net.shiroumi.central.Worker.AFKWorker;
 import net.shiroumi.central.Worker.NopickupWorker;
 
@@ -81,11 +88,23 @@ public class CentralCore extends JavaPlugin {
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getAFKChecker(), 0L, 20L);
 		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getKickChecker(), 0L, 20L);
 		
+		try {
+	        SQLiteManager.connect("testFile.db");
+	        DatabaseManager.executeUpdate(SQL.CREATE_TABLE_BLOCK_DATA);
+		} catch (SQLException e) {
+	        e.printStackTrace();
+        }
+		
 		log.info("Enabled " + this.getDescription().getName() + "!");
 	}
 
 	@Override
 	public void onDisable(){
+		try {
+	        DatabaseManager.closeConnection();
+        } catch (SQLException e) {
+	        e.printStackTrace();
+        }
 		this.getServer().getScheduler().cancelTasks(this);
 		log.info("Disabled " + this.getDescription().getName() + "!");
 	}

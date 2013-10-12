@@ -1,11 +1,11 @@
 package net.shiroumi.central.Command.Player;
 
 import net.shiroumi.central.CentralCore;
-import net.shiroumi.central.i18n;
 import net.shiroumi.central.Command.BaseCommand;
 import net.shiroumi.central.Command.CommandDescription;
 import net.shiroumi.central.Events.AFKEvent.AFKReason;
 import net.shiroumi.central.Util.Util;
+import net.shiroumi.central.Util.i18n;
 import net.shiroumi.central.Worker.AFKWorker;
 
 import org.bukkit.command.Command;

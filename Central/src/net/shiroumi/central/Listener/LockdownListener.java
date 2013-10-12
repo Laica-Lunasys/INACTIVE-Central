@@ -1,9 +1,9 @@
 package net.shiroumi.central.Listener;
 
 import net.shiroumi.central.CTServer;
-import net.shiroumi.central.i18n;
 import net.shiroumi.central.Events.LockdownEvent;
 import net.shiroumi.central.Util.Util;
+import net.shiroumi.central.Util.i18n;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

@@ -52,7 +52,7 @@ public class FileUtils {
 		}
 		for (File f : src.listFiles()) {
 			if (f.isDirectory()) delete(f);
-			if (f.isFile()) f.delete();
+			f.delete();
 		}
 	}
 
