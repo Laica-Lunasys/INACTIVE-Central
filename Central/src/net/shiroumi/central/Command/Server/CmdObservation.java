@@ -27,30 +27,58 @@ public class CmdObservation extends BaseCommand {
 	public boolean execute(CommandSender par1Sender, Command par2Command,
 			String par3Args, String[] par4Args) {
 		int page;
+		Util.broadcastMessage("Start Process...", null);
 		try {
-			page = Integer.parseInt(par4Args.length > 1 ? par4Args[0] : "10");
+			page = Integer.parseInt(par4Args.length > 1 ? par4Args[0] : "0") * 10;
 		} catch (NumberFormatException e) {
-			page = 10;
+			page = 0;
 		}
+		Util.broadcastMessage("page = %page", new String[][]{{"%page", Integer.toString(page)}});
 		ResultSet rs = null;
 		try {
-			rs = DatabaseManager.executeQuery(SQL.getSelectSQL(SQL.SELECT_BLOCK_DATA, new String[]{Integer.toString(page)}));
+			rs = DatabaseManager.executeQuery("select id, x, y, z, world, blockid, date, action, (select Name from Players where ID = player) as player from LogData limit 10 offset " + page);
+			Util.broadcastMessage("ResultSet of %resultset", new String[][]{{"%resultset", rs.toString()}});
+			Util.broadcastMessage(String.format("ResultSet Query Rows:%d", rs.getRow()), null);
 			while(rs.next()) {
 				String[] params = {
+						rs.getDate("id").toString(),
+						rs.getDate("date").toString(),
 						Integer.toString(rs.getInt("x")),
 						Integer.toString(rs.getInt("y")),
 						Integer.toString(rs.getInt("z")),
-						Integer.toString(rs.getInt("world")),
 						Integer.toString(rs.getInt("blockid")),
-						rs.getDate("action_date").toString(),
-						Integer.toString(rs.getInt("action")),
-						Integer.toString(rs.getInt("player")),
+						rs.getString("world"),
+						rs.getString("player"),
+						getAction(rs.getInt("action")),
 				};
+				Util.Message(par1Sender, String.format("ID: %s %s | x: %s y: %s z:%s BlockID: %s World: %s Player: %s Action: %s", (Object[])params), null);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+				try {
+					if(rs != null) DatabaseManager.closeResultSet(rs);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 		return true;
+	}
+
+	private String getAction (int action) {
+		String ret = "";
+		switch(action) {
+		case 0:
+			ret = "Block-Break";
+			break;
+		case 1:
+			ret = "Block-Place";
+			break;
+		case 2:
+			ret = "Player-Kill";
+			break;
+		}
+		return ret;
 	}
 
 }

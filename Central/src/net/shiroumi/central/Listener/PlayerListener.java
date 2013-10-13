@@ -1,5 +1,7 @@
 package net.shiroumi.central.Listener;
 
+import java.util.Date;
+
 import net.shiroumi.central.CTServer;
 import net.shiroumi.central.Util.Util;
 import net.shiroumi.central.Util.i18n;
@@ -20,23 +22,9 @@ public class PlayerListener implements Listener {
 		par1Plugin.getServer().getPluginManager().registerEvents(this, par1Plugin);
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPlayerPickupItem(final PlayerPickupItemEvent event) {
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onPlayerLogin(final PlayerLoginEvent event) {
 		Player p = event.getPlayer();
-		if (NopickupWorker.isPlayerNopickup(p)) {
-			event.setCancelled(true);
-		}
-	}
-
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPlayerLogin(PlayerLoginEvent event) {
-		if (CTServer.getBanManager().isBanned(event.getPlayer()) || CTServer.getIPBanManager().isBanned(event.getAddress())) {
-			event.disallow(Result.KICK_BANNED, Util.maskedStringReplace(i18n._("banmessage_to_disconnectplayer"), null));
-		}
-		if(CTServer.isLocked() && !Util.hasPerm("Central.Lockdown.except", event.getPlayer())) {
-			event.disallow(Result.KICK_OTHER, Util.maskedStringReplace(i18n._("serverlockmsg"), new String[][]{
-				{"%reason", CTServer.getLockReason()}
-			}));
-		}
+		Util.broadcastMessage(String.format("ID: %s IP: %s, Date: %s", p.getName(), p.getAddress().getAddress().getHostAddress(), new Date().toString()), null);
 	}
 }

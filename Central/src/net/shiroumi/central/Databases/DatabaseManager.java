@@ -57,8 +57,7 @@ public abstract class DatabaseManager {
 	public static enum SQLType {
 		MySQL("com.mysql.jdbc.Driver", "jdbc:mysql://%host/%db"), 
 		//PostgreSQL("org.postgresql.Driver", "jdbc:postgresql://%host/%db"),
-		SQLite("org.sqlite.JDBC", "jdbc:sqlite:%file")
-		;
+		SQLite("org.sqlite.JDBC", "jdbc:sqlite:%file");
 		private final String driver, uri;
 		SQLType(String par1Driver, String par2URI) {
 			driver = par1Driver;
@@ -82,7 +81,7 @@ public abstract class DatabaseManager {
 			return DriverManager.getConnection(uri.replace("%host", par1Host)
 					.replace("%db", par2DB), par3User, par4Pass);
 		}
-
+ 
 		/**
 		 * SQLite Only
 		 * @param par1File SQLite DatabaseFile Path

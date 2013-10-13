@@ -63,7 +63,7 @@ status8: 'take'
 banmessage: '%player is banned! (%reason)'
 unbanmessage: '%player is unbanned!'
 banmessage_to_disconnectplayer: 'You have been banned! (%reason)'
-kickmessage:'%player is kicked!　(%reason)'
+kickmessage: '%player is kicked!%reason)'
 
 #ErrorMsg
 fatalerror: '&cError! Details the visit Console.'

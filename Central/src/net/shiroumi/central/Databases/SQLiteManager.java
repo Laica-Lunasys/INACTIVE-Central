@@ -26,13 +26,21 @@ public class SQLiteManager extends DatabaseManager {
 		if(!f.exists()) {
 			Util.copyFileFromJar(f, "sqlite.jar", true);
 		}
+		File logdb = new File(CentralCore.getInstance().getDataFolder(), "log.db");
+		if(!logdb.exists()) {
+			Util.copyFileFromJar(logdb, "log.db", true);
+		}
 		try {
-			URL[] jarURL = {f.toURI().toURL()};
+			URL[] jarURL = {new URL("jar:file:" + f.getAbsolutePath() + "!/")};
 			URLClassLoader classloader = URLClassLoader.newInstance(jarURL);
-			classloader.loadClass(SQLType.SQLite.getDriver());
+			classloader.loadClass(SQLType.SQLite.getDriver()).newInstance();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
 	}

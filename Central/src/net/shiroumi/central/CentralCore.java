@@ -19,6 +19,7 @@ import net.shiroumi.central.Command.Server.CmdBan;
 import net.shiroumi.central.Command.Server.CmdBroadCast;
 import net.shiroumi.central.Command.Server.CmdKick;
 import net.shiroumi.central.Command.Server.CmdLockDown;
+import net.shiroumi.central.Command.Server.CmdObservation;
 import net.shiroumi.central.Command.Server.CmdOnlinePlayer;
 import net.shiroumi.central.Command.Server.CmdTime;
 import net.shiroumi.central.Command.Server.CmdWeather;
@@ -49,87 +50,96 @@ public class CentralCore extends JavaPlugin {
 	private static PluginFeatures<MCBans> mcbansFeatures;
 	private static PluginFeatures<PermissionsEx> pexFeatures;
 
-	public CentralCore(){
+	public CentralCore() {
 		Instance = this;
 	}
 
 	@Override
-	public void onEnable(){
+	public void onEnable() {
 		log = this.getLogger();
 		CTServer.initialize(this);
 		// Player Commands
-		CommandRegister.Register(new CmdAFK         (this));
-		CommandRegister.Register(new CmdClear       (this));
-		CommandRegister.Register(new CmdGamemode    (this));
-		CommandRegister.Register(new CmdGive        (this));
-		CommandRegister.Register(new CmdHome        (this));
-		CommandRegister.Register(new CmdInvisible   (this));
-		CommandRegister.Register(new CmdItem        (this));
-		CommandRegister.Register(new CmdNoPickup    (this));
-		CommandRegister.Register(new CmdSpawn       (this));
-		CommandRegister.Register(new CmdThor        (this));
+		CommandRegister.Register(new CmdAFK(this));
+		CommandRegister.Register(new CmdClear(this));
+		CommandRegister.Register(new CmdGamemode(this));
+		CommandRegister.Register(new CmdGive(this));
+		CommandRegister.Register(new CmdHome(this));
+		CommandRegister.Register(new CmdInvisible(this));
+		CommandRegister.Register(new CmdItem(this));
+		CommandRegister.Register(new CmdNoPickup(this));
+		CommandRegister.Register(new CmdSpawn(this));
+		CommandRegister.Register(new CmdThor(this));
 		// Server Commands
-		CommandRegister.Register(new CmdBan         (this));
-		CommandRegister.Register(new CmdBroadCast   (this));
-		CommandRegister.Register(new CmdKick        (this));
-		CommandRegister.Register(new CmdLockDown    (this));
+		CommandRegister.Register(new CmdBan(this));
+		CommandRegister.Register(new CmdBroadCast(this));
+		CommandRegister.Register(new CmdKick(this));
+		CommandRegister.Register(new CmdLockDown(this));
+		CommandRegister.Register(new CmdObservation(this));
 		CommandRegister.Register(new CmdOnlinePlayer(this));
-		CommandRegister.Register(new CmdTime        (this));
-		CommandRegister.Register(new CmdWeather     (this));
+		CommandRegister.Register(new CmdTime(this));
+		CommandRegister.Register(new CmdWeather(this));
 
 		new AFKListener(this);
 		new LockdownListener(this);
 		new PlayerListener(this);
-		AFKWorker.setAFKTime(CTServer.getConfiguration().getInteger("afktime") * 20);
-		AFKWorker.setKickTime(CTServer.getConfiguration().getInteger("afkkicktime") * 20);
+		AFKWorker
+				.setAFKTime(CTServer.getConfiguration().getInteger("afktime") * 20);
+		AFKWorker.setKickTime(CTServer.getConfiguration().getInteger(
+				"afkkicktime") * 20);
 		AFKWorker.setKick(CTServer.getConfiguration().getBoolean("afkkick"));
 		NopickupWorker.getPlayerNopickupMap().clear();
 		checkFeatures();
-		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getAFKChecker(), 0L, 20L);
-		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, AFKWorker.getKickChecker(), 0L, 20L);
-		
+		this.getServer()
+				.getScheduler()
+				.scheduleSyncRepeatingTask(this, AFKWorker.getAFKChecker(), 0L,
+						20L);
+		this.getServer()
+				.getScheduler()
+				.scheduleSyncRepeatingTask(this, AFKWorker.getKickChecker(),
+						0L, 20L);
+
 		try {
-	        SQLiteManager.connect("testFile.db");
-	        DatabaseManager.executeUpdate(SQL.CREATE_TABLE_BLOCK_DATA);
+			SQLiteManager.connect(this.getDataFolder().getAbsolutePath() + "/log.db");
+			DatabaseManager.executeUpdate(SQL.CREATE_TABLE_BLOCK_DATA);
+			DatabaseManager.executeUpdate(SQL.CREATE_TABLE_PLAYERS);
 		} catch (SQLException e) {
-	        e.printStackTrace();
-        }
-		
+			e.printStackTrace();
+		}
+
 		log.info("Enabled " + this.getDescription().getName() + "!");
 	}
 
 	@Override
-	public void onDisable(){
+	public void onDisable() {
 		try {
-	        DatabaseManager.closeConnection();
-        } catch (SQLException e) {
-	        e.printStackTrace();
-        }
+			DatabaseManager.closeConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		this.getServer().getScheduler().cancelTasks(this);
 		log.info("Disabled " + this.getDescription().getName() + "!");
 	}
 
-	public static CentralCore getInstance(){
+	public static CentralCore getInstance() {
 		return Instance;
 	}
 
-	public File getPluginJarFile(){
+	public File getPluginJarFile() {
 		return this.getFile();
 	}
 
-	public static String getLang(){
+	public static String getLang() {
 		return CTServer.getConfiguration().getString("lang");
 	}
 
 	private void checkFeatures() {
 		mcbansFeatures = PluginFeatures.register("MCBans");
-		Util.broadcastMessage(i18n._((mcbansFeatures != null ? "en" : "dis") + "ablefeatures"), new String[][] {
-			{"%plugin", "MCBans"}
-		});
+		Util.broadcastMessage(i18n._((mcbansFeatures != null ? "en" : "dis")
+				+ "ablefeatures"), new String[][] { { "%plugin", "MCBans" } });
 		pexFeatures = PluginFeatures.register("PermissionsEx");
-		Util.broadcastMessage(i18n._((pexFeatures != null ? "en" : "dis") + "ablefeatures"), new String[][] {
-			{"%plugin", "PermissionsEx"}
-		});
+		Util.broadcastMessage(
+				i18n._((pexFeatures != null ? "en" : "dis") + "ablefeatures"),
+				new String[][] { { "%plugin", "PermissionsEx" } });
 	}
 
 	public static String getPrefix() {
@@ -137,8 +147,9 @@ public class CentralCore extends JavaPlugin {
 	}
 
 	public static String getPrefix(Player par1Player) {
-		if (!CTServer.getConfiguration().getBoolean("isuseprefix")) return "";
-		if(par1Player != null && pexFeatures.isEnable()) {
+		if (!CTServer.getConfiguration().getBoolean("isuseprefix"))
+			return "";
+		if (par1Player != null && pexFeatures.isEnable()) {
 			PermissionUser user = PermissionsEx.getUser(par1Player);
 			return user.getPrefix(par1Player.getWorld().getName());
 		}
