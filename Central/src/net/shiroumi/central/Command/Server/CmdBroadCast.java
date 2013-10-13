@@ -4,6 +4,7 @@ import net.shiroumi.central.CentralCore;
 import net.shiroumi.central.Command.BaseCommand;
 import net.shiroumi.central.Command.CommandDescription;
 import net.shiroumi.central.Util.Util;
+import net.shiroumi.central.Util.i18n;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -23,7 +24,7 @@ public class CmdBroadCast extends BaseCommand {
 			sb.append(" ");
 		}
 		String message = sb.toString();
-		Util.broadcastMessage(message, null);
+		Util.broadcastMessage(i18n._("broadcastPrefix"), new String[][]{{"%msg", message}});
 		return true;
 	}
 

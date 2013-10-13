@@ -83,9 +83,9 @@ public class CentralCore extends JavaPlugin {
 		new LockdownListener(this);
 		new PlayerListener(this);
 		AFKWorker
-				.setAFKTime(CTServer.getConfiguration().getInteger("afktime") * 20);
+				.setAFKTime(CTServer.getConfiguration().getInteger("afktime") * 1000);
 		AFKWorker.setKickTime(CTServer.getConfiguration().getInteger(
-				"afkkicktime") * 20);
+				"afkkicktime") * 1000);
 		AFKWorker.setKick(CTServer.getConfiguration().getBoolean("afkkick"));
 		NopickupWorker.getPlayerNopickupMap().clear();
 		checkFeatures();
