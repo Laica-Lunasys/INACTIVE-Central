@@ -29,6 +29,7 @@ import net.shiroumi.central.Databases.SQL;
 import net.shiroumi.central.Databases.SQLiteManager;
 import net.shiroumi.central.Listener.AFKListener;
 import net.shiroumi.central.Listener.LockdownListener;
+import net.shiroumi.central.Listener.ObservationListener;
 import net.shiroumi.central.Listener.PlayerListener;
 import net.shiroumi.central.Util.PluginFeatures;
 import net.shiroumi.central.Util.Util;
@@ -81,6 +82,7 @@ public class CentralCore extends JavaPlugin {
 
 		new AFKListener(this);
 		new LockdownListener(this);
+		new ObservationListener(this);
 		new PlayerListener(this);
 		AFKWorker
 				.setAFKTime(CTServer.getConfiguration().getInteger("afktime") * 1000);

@@ -17,8 +17,10 @@ public class SQLiteManager extends DatabaseManager {
 	 * @throws SQLException
 	 */
 	public static void connect(String par1File) throws SQLException {
+		DatabaseManager.setSQLType(SQLType.SQLite);
 		loadFile();
 		con = SQLType.SQLite.getConnection(par1File);
+		
 	}
 
 	private static void loadFile() {

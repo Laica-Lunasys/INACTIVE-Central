@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class DatabaseManager {
 	protected static Connection con = null;
+	protected static SQLType type;
 	private static Map<ResultSet, Statement> openingStatements = new ConcurrentHashMap<ResultSet, Statement>();
 
 	protected static void connect(SQLType par1Type, String par2Host, String par3DB
@@ -52,6 +53,14 @@ public abstract class DatabaseManager {
 			}
 		}
 		con.close();
+	}
+
+	protected static void setSQLType(SQLType par1Type) {
+		type = par1Type;
+	}
+
+	protected static SQLType getSQLType() {
+		return type;
 	}
 
 	public static enum SQLType {

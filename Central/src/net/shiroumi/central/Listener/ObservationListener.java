@@ -1,17 +1,23 @@
 package net.shiroumi.central.Listener;
 
-import net.shiroumi.central.CTServer;
-import net.shiroumi.central.Util.Util;
-import net.shiroumi.central.Util.i18n;
-import net.shiroumi.central.Worker.NopickupWorker;
+import java.sql.SQLException;
 
+import net.shiroumi.central.Databases.ActionType;
+import net.shiroumi.central.Databases.DatabaseManager;
+import net.shiroumi.central.Util.Util;
+
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerLoginEvent.Result;
-import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ObservationListener implements Listener {
@@ -20,23 +26,103 @@ public class ObservationListener implements Listener {
 		par1Plugin.getServer().getPluginManager().registerEvents(this, par1Plugin);
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPlayerPickupItem(final PlayerPickupItemEvent event) {
-		Player p = event.getPlayer();
-		if (NopickupWorker.isPlayerNopickup(p)) {
-			event.setCancelled(true);
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=true)
+	public void onPlayerLogin(final PlayerLoginEvent event) {
+		try {
+			DatabaseManager.executeUpdate(Util.maskedStringReplace("replace into Players values(0,'%name', '%addr');", new String[][] {
+					{"%name", event.getPlayer().getName()},
+					{"%addr", event.getAddress().getHostAddress()}
+			}));
+
+			DatabaseManager.executeUpdate(Util.maskedStringReplace("replace into LogData(x,y,z,world,description,[action],player) values(%x,%y,%z,'%world','%desc', %action, (select ID from Players where Name = '%player' ));", new String[][] {
+					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%z", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%world", event.getPlayer().getLocation().getWorld().getName()},
+					{"%desc", String.format("From %s.", event.getAddress().getHostAddress())},
+					{"%action", Integer.toString(ActionType.PLAYER_JOIN.ordinal())},
+					{"%player", event.getPlayer().getName()},
+			}));
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPlayerLogin(PlayerLoginEvent event) {
-		if (CTServer.getBanManager().isBanned(event.getPlayer()) || CTServer.getIPBanManager().isBanned(event.getAddress())) {
-			event.disallow(Result.KICK_BANNED, Util.maskedStringReplace(i18n._("banmessage_to_disconnectplayer"), null));
-		}
-		if(CTServer.isLocked() && !Util.hasPerm("Central.Lockdown.except", event.getPlayer())) {
-			event.disallow(Result.KICK_OTHER, Util.maskedStringReplace(i18n._("serverlockmsg"), new String[][]{
-				{"%reason", CTServer.getLockReason()}
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=true)
+	public void onPlayerQuit(final PlayerQuitEvent event) {
+		try {
+			DatabaseManager.executeUpdate(Util.maskedStringReplace("replace into LogData(x,y,z,world,description,[action],player) values(%x,%y,%z,'%world','%desc', %action, (select ID from Players where Name = '%player' ));", new String[][] {
+					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%z", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%world", event.getPlayer().getLocation().getWorld().getName()},
+					{"%desc", String.format("From %s.", event.getPlayer().getAddress().getAddress().getHostAddress())},
+					{"%action", Integer.toString(ActionType.PLAYER_QUIT.ordinal())},
+					{"%player", event.getPlayer().getName()},
 			}));
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=false)
+	public void onPlayerChat(final AsyncPlayerChatEvent event) {
+		try {
+			DatabaseManager.executeUpdate(Util.maskedStringReplace("replace into LogData(x,y,z,world,description,[action],player) values(%x,%y,%z,'%world','%desc', %action, (select ID from Players where Name = '%player' ));", new String[][] {
+					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%z", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%world", event.getPlayer().getLocation().getWorld().getName()},
+					{"%desc", String.format("%s", event.getMessage())},
+					{"%action", Integer.toString(ActionType.PLAYER_CHAT.ordinal())},
+					{"%player", event.getPlayer().getName()},
+			}));
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=true)
+	public void onPlayerBreakBlock(final BlockBreakEvent event) {
+		try {
+			OfflinePlayer p = Bukkit.getOfflinePlayer("Environment");
+			if(event.getPlayer() != null) p = event.getPlayer().getPlayer();
+			DatabaseManager.executeUpdate(Util.maskedStringReplace("replace into LogData(x,y,z,world,description,[action],player) values(%x,%y,%z,'%world','%desc', %action, (select ID from Players where Name = '%player' ));", new String[][] {
+					{"%x", Integer.toString(event.getBlock().getX())},
+					{"%y", Integer.toString(event.getBlock().getY())},
+					{"%z", Integer.toString(event.getBlock().getZ())},
+					{"%world", event.getBlock().getWorld().getName()},
+					{"%desc", String.format("%s:%s", event.getBlock().getTypeId(), event.getBlock().getData())},
+					{"%action", Integer.toString(ActionType.BLOCK_BREAK.ordinal())},
+					{"%player", p.getName()},
+			}));
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=true)
+	public void onPlayerPlaceBlock(final BlockPlaceEvent event) {
+		try {
+			OfflinePlayer p = Bukkit.getOfflinePlayer("Environment");
+			if(event.getPlayer() != null) p = event.getPlayer().getPlayer();
+			DatabaseManager.executeUpdate(Util.maskedStringReplace("replace into LogData(x,y,z,world,description,[action],player) values(%x,%y,%z,'%world','%desc', %action, (select ID from Players where Name = '%player' ));", new String[][] {
+					{"%x", Integer.toString(event.getBlock().getX())},
+					{"%y", Integer.toString(event.getBlock().getY())},
+					{"%z", Integer.toString(event.getBlock().getZ())},
+					{"%world", event.getBlock().getWorld().getName()},
+					{"%desc", String.format("%s:%s", event.getBlock().getTypeId(), event.getBlock().getData())},
+					{"%action", Integer.toString(ActionType.BLOCK_PLACE.ordinal())},
+					{"%player", p.getName()},
+			}));
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 }
