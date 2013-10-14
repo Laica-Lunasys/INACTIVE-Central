@@ -2,7 +2,7 @@ package net.shiroumi.central.Databases;
 
 import java.sql.SQLException;
 
-public class MySQLManager extends DatabaseManager {
+public class MySQLConnector extends DatabaseManager {
 	/**
 	 * Connect Database
 	 * @param par2File Database File

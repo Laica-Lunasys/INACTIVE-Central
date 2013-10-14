@@ -26,7 +26,7 @@ import net.shiroumi.central.Command.Server.CmdWeather;
 import net.shiroumi.central.Databases.DatabaseManager;
 import net.shiroumi.central.Databases.DatabaseManager.SQLType;
 import net.shiroumi.central.Databases.SQL;
-import net.shiroumi.central.Databases.SQLiteManager;
+import net.shiroumi.central.Databases.SQLiteConnector;
 import net.shiroumi.central.Listener.AFKListener;
 import net.shiroumi.central.Listener.LockdownListener;
 import net.shiroumi.central.Listener.ObservationListener;
@@ -101,7 +101,7 @@ public class CentralCore extends JavaPlugin {
 						0L, 20L);
 
 		try {
-			SQLiteManager.connect(this.getDataFolder().getAbsolutePath() + "/log.db");
+			SQLiteConnector.connect(this.getDataFolder().getAbsolutePath() + "/log.db");
 			DatabaseManager.executeUpdate(SQL.CREATE_TABLE_BLOCK_DATA);
 			DatabaseManager.executeUpdate(SQL.CREATE_TABLE_PLAYERS);
 		} catch (SQLException e) {

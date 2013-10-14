@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import net.shiroumi.central.CentralCore;
 import net.shiroumi.central.Util.Util;
 
-public class SQLiteManager extends DatabaseManager {
+public class SQLiteConnector extends DatabaseManager {
 
 	/**
 	 * Connect SQLite Database
