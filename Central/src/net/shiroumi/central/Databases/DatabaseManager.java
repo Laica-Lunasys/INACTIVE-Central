@@ -59,7 +59,7 @@ public abstract class DatabaseManager {
 		type = par1Type;
 	}
 
-	protected static SQLType getSQLType() {
+	public static SQLType getSQLType() {
 		return type;
 	}
 

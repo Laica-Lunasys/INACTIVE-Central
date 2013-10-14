@@ -8,6 +8,7 @@ import net.shiroumi.central.Command.BaseCommand;
 import net.shiroumi.central.Command.CommandDescription;
 import net.shiroumi.central.Databases.ActionType;
 import net.shiroumi.central.Databases.DatabaseManager;
+import net.shiroumi.central.Databases.SQL;
 import net.shiroumi.central.Util.Util;
 
 import org.bukkit.command.Command;
@@ -34,9 +35,7 @@ public class CmdObservation extends BaseCommand {
 		}
 		ResultSet rs = null;
 		try {
-			rs = DatabaseManager.executeQuery("select id, x, y, z, world, description, date, action, (select Name from Players where ID = player) as player from LogData limit 10 offset " + page);
-			//Util.broadcastMessage("ResultSet of %resultset", new String[][]{{"%resultset", rs.toString()}});
-			//Util.broadcastMessage(String.format("ResultSet Query Rows:%d", rs.getRow()), null);
+			rs = DatabaseManager.executeQuery(String.format(SQL.SELECT_LOG_DATA, page));
 			while(rs.next()) {
 				Object[] params = {
 						rs.getInt("id"),

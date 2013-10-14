@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import net.shiroumi.central.Databases.ActionType;
 import net.shiroumi.central.Databases.DatabaseManager;
+import net.shiroumi.central.Databases.SQL;
 import net.shiroumi.central.Util.Util;
 
 import org.bukkit.Bukkit;
@@ -29,12 +30,25 @@ public class ObservationListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=true)
 	public void onPlayerLogin(final PlayerLoginEvent event) {
 		try {
-			DatabaseManager.executeUpdate(Util.maskedStringReplace("replace into Players values(0,'%name', '%addr');", new String[][] {
+			Util.broadcastMessage(SQL.INSERT_PLAYER, new String[][] {
+					{"%name", event.getPlayer().getName()},
+					{"%addr", event.getAddress().getHostAddress()}
+			});
+			DatabaseManager.executeUpdate(Util.maskedStringReplace(SQL.INSERT_PLAYER, new String[][] {
 					{"%name", event.getPlayer().getName()},
 					{"%addr", event.getAddress().getHostAddress()}
 			}));
 
-			DatabaseManager.executeUpdate(Util.maskedStringReplace("replace into LogData(x,y,z,world,description,[action],player) values(%x,%y,%z,'%world','%desc', %action, (select ID from Players where Name = '%player' ));", new String[][] {
+			Util.broadcastMessage(SQL.INSERT_LOG_DATA, new String[][] {
+					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%z", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%world", event.getPlayer().getLocation().getWorld().getName()},
+					{"%desc", String.format("From %s.", event.getAddress().getHostAddress())},
+					{"%action", Integer.toString(ActionType.PLAYER_JOIN.ordinal())},
+					{"%player", event.getPlayer().getName()},
+			});
+			DatabaseManager.executeUpdate(Util.maskedStringReplace(SQL.INSERT_LOG_DATA, new String[][] {
 					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
 					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
 					{"%z", Integer.toString(event.getPlayer().getLocation().getBlockX())},
@@ -52,7 +66,16 @@ public class ObservationListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=true)
 	public void onPlayerQuit(final PlayerQuitEvent event) {
 		try {
-			DatabaseManager.executeUpdate(Util.maskedStringReplace("replace into LogData(x,y,z,world,description,[action],player) values(%x,%y,%z,'%world','%desc', %action, (select ID from Players where Name = '%player' ));", new String[][] {
+			Util.broadcastMessage(SQL.INSERT_LOG_DATA, new String[][] {
+					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%z", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%world", event.getPlayer().getLocation().getWorld().getName()},
+					{"%desc", String.format("From %s.", event.getPlayer().getAddress().getAddress().getHostAddress())},
+					{"%action", Integer.toString(ActionType.PLAYER_QUIT.ordinal())},
+					{"%player", event.getPlayer().getName()},
+			});
+			DatabaseManager.executeUpdate(Util.maskedStringReplace(SQL.INSERT_LOG_DATA, new String[][] {
 					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
 					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
 					{"%z", Integer.toString(event.getPlayer().getLocation().getBlockX())},
@@ -61,6 +84,7 @@ public class ObservationListener implements Listener {
 					{"%action", Integer.toString(ActionType.PLAYER_QUIT.ordinal())},
 					{"%player", event.getPlayer().getName()},
 			}));
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -70,7 +94,16 @@ public class ObservationListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=false)
 	public void onPlayerChat(final AsyncPlayerChatEvent event) {
 		try {
-			DatabaseManager.executeUpdate(Util.maskedStringReplace("replace into LogData(x,y,z,world,description,[action],player) values(%x,%y,%z,'%world','%desc', %action, (select ID from Players where Name = '%player' ));", new String[][] {
+			Util.broadcastMessage(SQL.INSERT_LOG_DATA, new String[][] {
+					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%z", Integer.toString(event.getPlayer().getLocation().getBlockX())},
+					{"%world", event.getPlayer().getLocation().getWorld().getName()},
+					{"%desc", String.format("%s", event.getMessage())},
+					{"%action", Integer.toString(ActionType.PLAYER_CHAT.ordinal())},
+					{"%player", event.getPlayer().getName()},
+			});
+			DatabaseManager.executeUpdate(Util.maskedStringReplace(SQL.INSERT_LOG_DATA, new String[][] {
 					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
 					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
 					{"%z", Integer.toString(event.getPlayer().getLocation().getBlockX())},
@@ -90,7 +123,7 @@ public class ObservationListener implements Listener {
 		try {
 			OfflinePlayer p = Bukkit.getOfflinePlayer("Environment");
 			if(event.getPlayer() != null) p = event.getPlayer().getPlayer();
-			DatabaseManager.executeUpdate(Util.maskedStringReplace("replace into LogData(x,y,z,world,description,[action],player) values(%x,%y,%z,'%world','%desc', %action, (select ID from Players where Name = '%player' ));", new String[][] {
+			DatabaseManager.executeUpdate(Util.maskedStringReplace(SQL.INSERT_LOG_DATA, new String[][] {
 					{"%x", Integer.toString(event.getBlock().getX())},
 					{"%y", Integer.toString(event.getBlock().getY())},
 					{"%z", Integer.toString(event.getBlock().getZ())},
@@ -111,7 +144,7 @@ public class ObservationListener implements Listener {
 		try {
 			OfflinePlayer p = Bukkit.getOfflinePlayer("Environment");
 			if(event.getPlayer() != null) p = event.getPlayer().getPlayer();
-			DatabaseManager.executeUpdate(Util.maskedStringReplace("replace into LogData(x,y,z,world,description,[action],player) values(%x,%y,%z,'%world','%desc', %action, (select ID from Players where Name = '%player' ));", new String[][] {
+			DatabaseManager.executeUpdate(Util.maskedStringReplace(SQL.INSERT_LOG_DATA, new String[][] {
 					{"%x", Integer.toString(event.getBlock().getX())},
 					{"%y", Integer.toString(event.getBlock().getY())},
 					{"%z", Integer.toString(event.getBlock().getZ())},
