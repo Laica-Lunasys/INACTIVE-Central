@@ -9,14 +9,12 @@ import net.shiroumi.central.Util.Util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,24 +28,11 @@ public class ObservationListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=true)
 	public void onPlayerLogin(final PlayerLoginEvent event) {
 		try {
-			Util.broadcastMessage(SQL.INSERT_PLAYER, new String[][] {
-					{"%name", event.getPlayer().getName()},
-					{"%addr", event.getAddress().getHostAddress()}
-			});
 			DatabaseManager.executeUpdate(Util.maskedStringReplace(SQL.INSERT_PLAYER, new String[][] {
 					{"%name", event.getPlayer().getName()},
 					{"%addr", event.getAddress().getHostAddress()}
 			}));
 
-			Util.broadcastMessage(SQL.INSERT_LOG_DATA, new String[][] {
-					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
-					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
-					{"%z", Integer.toString(event.getPlayer().getLocation().getBlockX())},
-					{"%world", event.getPlayer().getLocation().getWorld().getName()},
-					{"%desc", String.format("From %s.", event.getAddress().getHostAddress())},
-					{"%action", Integer.toString(ActionType.PLAYER_JOIN.ordinal())},
-					{"%player", event.getPlayer().getName()},
-			});
 			DatabaseManager.executeUpdate(Util.maskedStringReplace(SQL.INSERT_LOG_DATA, new String[][] {
 					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
 					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
@@ -66,15 +51,6 @@ public class ObservationListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=true)
 	public void onPlayerQuit(final PlayerQuitEvent event) {
 		try {
-			Util.broadcastMessage(SQL.INSERT_LOG_DATA, new String[][] {
-					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
-					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
-					{"%z", Integer.toString(event.getPlayer().getLocation().getBlockX())},
-					{"%world", event.getPlayer().getLocation().getWorld().getName()},
-					{"%desc", String.format("From %s.", event.getPlayer().getAddress().getAddress().getHostAddress())},
-					{"%action", Integer.toString(ActionType.PLAYER_QUIT.ordinal())},
-					{"%player", event.getPlayer().getName()},
-			});
 			DatabaseManager.executeUpdate(Util.maskedStringReplace(SQL.INSERT_LOG_DATA, new String[][] {
 					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
 					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
@@ -94,15 +70,6 @@ public class ObservationListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=false)
 	public void onPlayerChat(final AsyncPlayerChatEvent event) {
 		try {
-			Util.broadcastMessage(SQL.INSERT_LOG_DATA, new String[][] {
-					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
-					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
-					{"%z", Integer.toString(event.getPlayer().getLocation().getBlockX())},
-					{"%world", event.getPlayer().getLocation().getWorld().getName()},
-					{"%desc", String.format("%s", event.getMessage())},
-					{"%action", Integer.toString(ActionType.PLAYER_CHAT.ordinal())},
-					{"%player", event.getPlayer().getName()},
-			});
 			DatabaseManager.executeUpdate(Util.maskedStringReplace(SQL.INSERT_LOG_DATA, new String[][] {
 					{"%x", Integer.toString(event.getPlayer().getLocation().getBlockX())},
 					{"%y", Integer.toString(event.getPlayer().getLocation().getBlockX())},
@@ -118,6 +85,7 @@ public class ObservationListener implements Listener {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=true)
 	public void onPlayerBreakBlock(final BlockBreakEvent event) {
 		try {
@@ -138,7 +106,7 @@ public class ObservationListener implements Listener {
 		}
 	}
 
-
+	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled=true)
 	public void onPlayerPlaceBlock(final BlockPlaceEvent event) {
 		try {

@@ -24,7 +24,6 @@ import net.shiroumi.central.Command.Server.CmdOnlinePlayer;
 import net.shiroumi.central.Command.Server.CmdTime;
 import net.shiroumi.central.Command.Server.CmdWeather;
 import net.shiroumi.central.Databases.DatabaseManager;
-import net.shiroumi.central.Databases.DatabaseManager.SQLType;
 import net.shiroumi.central.Databases.SQL;
 import net.shiroumi.central.Databases.SQLiteConnector;
 import net.shiroumi.central.Listener.AFKListener;

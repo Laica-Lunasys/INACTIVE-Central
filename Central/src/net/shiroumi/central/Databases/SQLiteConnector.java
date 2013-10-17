@@ -28,10 +28,6 @@ public class SQLiteConnector extends DatabaseManager {
 		if(!f.exists()) {
 			Util.copyFileFromJar(f, "sqlite.jar", true);
 		}
-		File logdb = new File(CentralCore.getInstance().getDataFolder(), "log.db");
-		if(!logdb.exists()) {
-			Util.copyFileFromJar(logdb, "log.db", true);
-		}
 		try {
 			URL[] jarURL = {new URL("jar:file:" + f.getAbsolutePath() + "!/")};
 			URLClassLoader classloader = URLClassLoader.newInstance(jarURL);

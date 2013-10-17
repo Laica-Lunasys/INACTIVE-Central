@@ -2,10 +2,16 @@ package net.shiroumi.central.Command.Server;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import net.shiroumi.central.CentralCore;
 import net.shiroumi.central.Command.BaseCommand;
 import net.shiroumi.central.Command.CommandDescription;
+import net.shiroumi.central.Command.ArgsParser.ArgsParser;
+import net.shiroumi.central.Command.ArgsParser.Converters;
+import net.shiroumi.central.Command.ArgsParser.ParseCommand;
 import net.shiroumi.central.Databases.ActionType;
 import net.shiroumi.central.Databases.DatabaseManager;
 import net.shiroumi.central.Databases.SQL;
@@ -33,6 +39,23 @@ public class CmdObservation extends BaseCommand {
 		} catch (NumberFormatException e) {
 			page = 0;
 		}
+		ArgsParser ap = new ArgsParser();
+		ParseCommand view = new ParseCommand("view");
+		view.addOption("p", "page",   1, Converters.getStringConverter());
+		view.addOption("l", "location", 3, Converters.getIntegerConverter());
+		view.addOption("t", "type",     1, Converters.getIntegerConverter());
+
+		ParseCommand rollback = new ParseCommand("rollback");
+		rollback.addOption("p", "player",   1, Converters.getStringConverter());
+		rollback.addOption("i", "id",       1, Converters.getIntegerConverter());
+		rollback.addOption("l", "location", 3, Converters.getIntegerConverter());
+		rollback.addOption("t", "type",     1, Converters.getIntegerConverter());
+
+		ap.addCommandParser(view);
+		ap.addCommandParser(rollback);
+		ap.parse(par3Args);
+		Map<String, List<Entry<String, List<?>>>> args = ap.getValue();
+		System.out.println(args);
 		ResultSet rs = null;
 		try {
 			rs = DatabaseManager.executeQuery(String.format(SQL.SELECT_LOG_DATA, page));
